@@ -11,7 +11,9 @@ import {
   CountdownTimer,
   PurchaseNotifications,
   StickyAddToCart,
+  ShippingCountdown,
 } from "@/components/fomo";
+import { QuantityBreaks } from "@/components/QuantityBreaks";
 
 // Configure sale end date (set this to your desired end date)
 const SALE_END_DATE = new Date(Date.now() + 3 * 24 * 60 * 60 * 1000); // 3 days from now
@@ -21,6 +23,8 @@ const Catalogue = () => {
   const [loading, setLoading] = useState(true);
   const [selectedProduct, setSelectedProduct] = useState<ShopifyProduct | null>(null);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+  const [selectedQuantity, setSelectedQuantity] = useState(1);
+  const [selectedPriceEach, setSelectedPriceEach] = useState(0);
   const { addItem, isLoading: cartLoading } = useCartStore();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const addToCartButtonRef = useRef<HTMLDivElement>(null);
@@ -103,6 +107,37 @@ const Catalogue = () => {
   const openProductGallery = (product: ShopifyProduct) => {
     setSelectedProduct(product);
     setSelectedImageIndex(0);
+    // Reset quantity selection with initial price
+    const basePrice = parseFloat(product.node.priceRange.minVariantPrice.amount);
+    setSelectedQuantity(1);
+    setSelectedPriceEach(basePrice * 0.9); // 10% discount for buy 1
+  };
+
+  const handleQuantityChange = (quantity: number, priceEach: number) => {
+    setSelectedQuantity(quantity);
+    setSelectedPriceEach(priceEach);
+  };
+
+  const handleAddToCartWithQuantity = (product: ShopifyProduct, e: React.MouseEvent) => {
+    e.stopPropagation();
+    const variant = product.node.variants.edges[0]?.node;
+    if (!variant) {
+      toast.error("Product not available");
+      return;
+    }
+
+    addItem({
+      variantId: variant.id,
+      variantTitle: variant.title,
+      quantity: selectedQuantity,
+      product,
+      selectedOptions: variant.selectedOptions,
+      price: variant.price,
+    });
+
+    toast.success(`${selectedQuantity}x ${product.node.title} added to cart!`, {
+      position: "top-center",
+    });
   };
 
   // Touch handlers for swipe gestures on gallery
@@ -433,28 +468,51 @@ const Catalogue = () => {
                   </div>
                 )}
 
+                {/* Quantity Breaks / Bundle Pricing */}
+                <div className="mb-3 sm:mb-4">
+                  <QuantityBreaks 
+                    basePrice={parseFloat(selectedProduct.node.priceRange.minVariantPrice.amount)}
+                    onQuantityChange={handleQuantityChange}
+                  />
+                </div>
+
                 {/* Countdown Timer */}
                 <div className="mb-3 sm:mb-4">
                   <CountdownTimer endDate={SALE_END_DATE} />
                 </div>
 
+                {/* Shipping Countdown */}
+                <div className="mb-3 sm:mb-4">
+                  <ShippingCountdown cutoffHour={14} businessDays={4} />
+                </div>
+
                 {/* Price and Add to Cart - sticky on mobile */}
-                <div ref={addToCartButtonRef} className="flex items-center justify-between pt-3 sm:pt-4 border-t border-border mt-auto">
-                  <p className="font-display text-2xl sm:text-3xl text-accent">
-                    R {parseFloat(selectedProduct.node.priceRange.minVariantPrice.amount).toFixed(0)}
-                  </p>
+                <div ref={addToCartButtonRef} className="pt-3 sm:pt-4 border-t border-border mt-auto">
+                  <div className="flex items-center justify-between mb-3">
+                    <div>
+                      <p className="font-display text-2xl sm:text-3xl text-accent">
+                        R {Math.round(selectedPriceEach * selectedQuantity)}
+                      </p>
+                      <p className="text-xs text-muted-foreground font-body">
+                        {selectedQuantity > 1 ? `R${Math.round(selectedPriceEach)} each` : ''}
+                      </p>
+                    </div>
+                    <span className="text-sm text-muted-foreground font-body">
+                      Qty: {selectedQuantity}
+                    </span>
+                  </div>
                   <Button
                     variant="walnut"
                     size="lg"
                     onClick={(e) => {
-                      handleAddToCart(selectedProduct, e);
+                      handleAddToCartWithQuantity(selectedProduct, e);
                       setSelectedProduct(null);
                     }}
                     disabled={isSoldOut || cartLoading}
-                    className="touch-target-lg text-sm sm:text-base"
+                    className="w-full touch-target-lg text-sm sm:text-base"
                   >
                     <ShoppingCart className="w-4 h-4 mr-2" />
-                    {isSoldOut ? "Sold Out" : "Add to Cart"}
+                    {isSoldOut ? "Sold Out" : `Add ${selectedQuantity} to Cart`}
                   </Button>
                 </div>
               </div>
