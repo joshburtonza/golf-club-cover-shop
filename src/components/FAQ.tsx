@@ -39,7 +39,7 @@ const faqs = [
   {
     question: "Can I buy just one?",
     answer:
-      "Yes! R400 for a single (The Mulligan). But the 3-pack (The Scramble) at R700 saves you R500. That's at least 10 rounds of lost balls right there.",
+      "Yes! R375 for a single (The Mulligan). But the 3-pack (The Scramble) at R669 saves you R456. That's at least 10 rounds of lost balls right there.",
   },
   {
     question: "Do you ship to my area?",

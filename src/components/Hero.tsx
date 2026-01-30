@@ -40,7 +40,7 @@ const Hero = () => {
               </Button>
             </div>
             <p className="text-muted-foreground text-xs sm:text-sm mt-5 sm:mt-6 font-body">
-              From <span className="text-accent font-semibold">R400</span> • Free shipping over R500
+              From <span className="text-accent font-semibold">R375</span> • Free shipping over R500
             </p>
           </div>
 

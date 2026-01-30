@@ -52,7 +52,7 @@ const Pricing = () => {
               Time to stock those shelves!
             </p>
             <p className="text-sm text-muted-foreground font-body">
-              Tell me to create: "The Mulligan for R400 and The Scramble 3-pack for R700"
+              Tell me to create: "The Mulligan for R375 and The Scramble 3-pack for R669"
             </p>
           </div>
         </div>
