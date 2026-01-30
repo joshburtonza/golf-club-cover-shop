@@ -7,24 +7,44 @@ import {
 
 const faqs = [
   {
-    question: "What size clubs do these headcovers fit?",
+    question: "Will these headcovers improve my game?",
     answer:
-      "Our headcovers are designed to fit standard driver heads up to 460cc, which covers most modern drivers on the market. They also work great with fairway woods and hybrids.",
+      "Absolutely not. But you'll look significantly better while three-putting. Think of it as a confidence upgrade for your equipment, if not your swing.",
   },
   {
-    question: "How long does shipping take within South Africa?",
+    question: "What size clubs do these fit?",
     answer:
-      "We ship nationwide via courier. Orders are typically delivered within 3-5 business days to major cities, and 5-7 business days to rural areas. You'll receive a tracking number once your order ships.",
+      "Drivers up to 460cc (which is most modern drivers), plus fairway woods and hybrids. They're more forgiving than your playing partners when you're looking for your ball in the rough.",
   },
   {
-    question: "What is your returns policy?",
+    question: "How long does shipping take?",
     answer:
-      "We offer a 30-day hassle-free return policy. If you're not completely satisfied with your purchase, simply contact us and we'll arrange a return. Items must be unused and in original packaging.",
+      "3-5 business days to major cities, 5-7 to rural areas. Still faster than that group ahead of you looking for balls on every hole.",
   },
   {
-    question: "Are these covers durable for regular use?",
+    question: "What if I don't like them?",
     answer:
-      "Absolutely! Our headcovers are made with premium synthetic leather and reinforced stitching designed to withstand regular golf bag use. The magnetic closure ensures they stay securely on your clubs.",
+      "30-day returns, no questions asked. Unlike that 'gimme' you took from 6 feet, we won't make you prove anything. Just contact us and we'll sort it out.",
+  },
+  {
+    question: "Why 'Topped It'?",
+    answer:
+      "Because every golfer has been there. That sickening thwack as you catch the top of the ball and it dribbles 30 metres. We named our brand after our worst shots so our customers don't have to hide from theirs.",
+  },
+  {
+    question: "Are these durable?",
+    answer:
+      "Premium synthetic leather with reinforced stitching. Built to survive being thrown into the boot after a bad round. We've all been there.",
+  },
+  {
+    question: "Can I buy just one?",
+    answer:
+      "Yes! R400 for a single (The Mulligan). But the 3-pack (The Scramble) at R700 saves you R500. That's at least 10 rounds of lost balls right there.",
+  },
+  {
+    question: "Do you ship to my area?",
+    answer:
+      "We ship nationwide across South Africa via courier. Free shipping on orders over R500. If you can enter your address at checkout, we can get it to you.",
   },
 ];
 
@@ -35,7 +55,7 @@ const FAQ = () => {
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-12">
             <span className="text-gold font-body text-sm font-semibold tracking-widest uppercase">
-              Got Questions?
+              Questions From the 19th Hole
             </span>
             <h2 className="font-display text-4xl sm:text-5xl mt-2">
               Frequently Asked

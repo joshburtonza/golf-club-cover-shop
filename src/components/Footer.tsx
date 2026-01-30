@@ -7,16 +7,16 @@ const Footer = () => {
         <div className="flex flex-col items-center text-center">
           {/* Logo/Brand */}
           <h3 className="font-display text-2xl sm:text-3xl mb-2">
-            Vintage Jersey <span className="text-gold">Headcovers</span>
+            TOPPED <span className="text-gold">IT</span>
           </h3>
           <p className="text-muted-foreground font-body text-sm mb-6">
-            Premium golf accessories for the modern player
+            Headcovers for the Rest of Us
           </p>
 
           {/* Social Links */}
           <div className="flex items-center gap-4 mb-8">
             <a
-              href="https://instagram.com"
+              href="https://instagram.com/toppedit.za"
               target="_blank"
               rel="noopener noreferrer"
               className="w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center hover:border-gold hover:text-gold transition-colors"
@@ -25,7 +25,7 @@ const Footer = () => {
               <Instagram className="w-5 h-5" />
             </a>
             <a
-              href="https://facebook.com"
+              href="https://facebook.com/toppedit"
               target="_blank"
               rel="noopener noreferrer"
               className="w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center hover:border-gold hover:text-gold transition-colors"
@@ -34,7 +34,7 @@ const Footer = () => {
               <Facebook className="w-5 h-5" />
             </a>
             <a
-              href="mailto:hello@vintageheadcovers.co.za"
+              href="mailto:hello@toppedit.co.za"
               className="w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center hover:border-gold hover:text-gold transition-colors"
               aria-label="Email us"
             >
@@ -44,15 +44,15 @@ const Footer = () => {
 
           {/* Contact Email */}
           <a
-            href="mailto:hello@vintageheadcovers.co.za"
+            href="mailto:hello@toppedit.co.za"
             className="text-gold hover:underline font-body mb-6"
           >
-            hello@vintageheadcovers.co.za
+            hello@toppedit.co.za
           </a>
 
           {/* Copyright */}
           <p className="text-muted-foreground font-body text-xs">
-            © {new Date().getFullYear()} Vintage Jersey Headcovers. All rights reserved.
+            © {new Date().getFullYear()} Topped It. All rights reserved.
           </p>
         </div>
       </div>

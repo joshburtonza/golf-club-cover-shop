@@ -5,7 +5,7 @@ const Header = () => {
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
       <div className="container flex items-center justify-between h-16">
         <a href="#" className="font-display text-xl sm:text-2xl text-gold">
-          Vintage Jersey
+          TOPPED IT
         </a>
         <div className="flex items-center gap-4">
           <a 
