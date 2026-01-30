@@ -1,10 +1,20 @@
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
-import { ShoppingCart, Loader2, ChevronLeft, ChevronRight, X } from "lucide-react";
+import { ShoppingCart, Loader2, ChevronLeft, ChevronRight } from "lucide-react";
 import { storefrontApiRequest, PRODUCTS_QUERY, ShopifyProduct } from "@/lib/shopify";
 import { useCartStore } from "@/stores/cartStore";
 import { toast } from "sonner";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import {
+  LiveViewers,
+  StockCounter,
+  CountdownTimer,
+  PurchaseNotifications,
+  StickyAddToCart,
+} from "@/components/fomo";
+
+// Configure sale end date (set this to your desired end date)
+const SALE_END_DATE = new Date(Date.now() + 3 * 24 * 60 * 60 * 1000); // 3 days from now
 
 const Catalogue = () => {
   const [products, setProducts] = useState<ShopifyProduct[]>([]);
@@ -13,6 +23,7 @@ const Catalogue = () => {
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const { addItem, isLoading: cartLoading } = useCartStore();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const addToCartButtonRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -78,6 +89,11 @@ const Catalogue = () => {
     setSelectedImageIndex(0);
   };
 
+  const getProductStock = (product: ShopifyProduct): number | null => {
+    const variant = product.node.variants.edges[0]?.node;
+    return variant?.quantityAvailable ?? null;
+  };
+
   if (loading) {
     return (
       <section id="catalogue" className="py-16 sm:py-24 bg-cream">
@@ -107,8 +123,15 @@ const Catalogue = () => {
     );
   }
 
+  const selectedVariant = selectedProduct?.node.variants.edges[0]?.node;
+  const selectedStock = selectedProduct ? getProductStock(selectedProduct) : null;
+  const isSoldOut = selectedStock === 0 || !selectedVariant?.availableForSale;
+
   return (
     <section id="catalogue" className="py-16 sm:py-24 bg-cream">
+      {/* Purchase notifications running in background */}
+      <PurchaseNotifications productName="a Topped It headcover" enabled />
+
       <div className="container">
         <div className="text-center mb-12">
           <span className="text-accent font-body text-sm font-semibold tracking-widest uppercase">
@@ -159,6 +182,8 @@ const Catalogue = () => {
               const price = product.node.priceRange.minVariantPrice;
               const variant = product.node.variants.edges[0]?.node;
               const productImage = product.node.images.edges[0]?.node;
+              const stock = getProductStock(product);
+              const productSoldOut = stock === 0 || !variant?.availableForSale;
 
               return (
                 <div
@@ -177,6 +202,18 @@ const Catalogue = () => {
                     ) : (
                       <div className="w-full h-full flex items-center justify-center bg-walnut/5">
                         <span className="text-walnut/30 font-display text-lg">No Image</span>
+                      </div>
+                    )}
+                    {/* Sold out overlay */}
+                    {productSoldOut && (
+                      <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
+                        <span className="text-white font-display text-xl uppercase">Sold Out</span>
+                      </div>
+                    )}
+                    {/* Low stock badge */}
+                    {stock !== null && stock > 0 && stock <= 14 && (
+                      <div className="absolute top-2 left-2 bg-orange-500 text-white text-xs px-2 py-1 rounded-full font-body font-semibold">
+                        Only {stock} left!
                       </div>
                     )}
                     {/* Image count badge */}
@@ -203,10 +240,10 @@ const Catalogue = () => {
                         variant="walnut"
                         size="sm"
                         onClick={(e) => handleAddToCart(product, e)}
-                        disabled={!variant?.availableForSale || cartLoading}
+                        disabled={productSoldOut || cartLoading}
                       >
                         <ShoppingCart className="w-4 h-4 mr-2" />
-                        Add
+                        {productSoldOut ? "Sold Out" : "Add"}
                       </Button>
                     </div>
                   </div>
@@ -217,9 +254,9 @@ const Catalogue = () => {
         </div>
       </div>
 
-      {/* Product Gallery Modal */}
+      {/* Product Gallery Modal with FOMO Features */}
       <Dialog open={!!selectedProduct} onOpenChange={() => setSelectedProduct(null)}>
-        <DialogContent className="max-w-4xl p-0 bg-card border-border overflow-hidden">
+        <DialogContent className="max-w-4xl p-0 bg-card border-border overflow-hidden max-h-[90vh] overflow-y-auto">
           <DialogTitle className="sr-only">
             {selectedProduct?.node.title || "Product Gallery"}
           </DialogTitle>
@@ -236,6 +273,13 @@ const Catalogue = () => {
                 ) : (
                   <div className="w-full h-full flex items-center justify-center">
                     <span className="text-walnut/30 font-display">No Image</span>
+                  </div>
+                )}
+
+                {/* Sold out overlay */}
+                {isSoldOut && (
+                  <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
+                    <span className="text-white font-display text-3xl uppercase">Sold Out</span>
                   </div>
                 )}
 
@@ -271,13 +315,25 @@ const Catalogue = () => {
               </div>
 
               {/* Product Info Panel */}
-              <div className="lg:w-80 p-6 flex flex-col">
+              <div className="lg:w-96 p-6 flex flex-col">
+                {/* Live viewers */}
+                <div className="mb-3">
+                  <LiveViewers productId={selectedProduct.node.id} />
+                </div>
+
                 <h3 className="font-display text-2xl text-walnut mb-2">
                   {selectedProduct.node.title}
                 </h3>
-                <p className="text-walnut/70 font-body text-sm mb-4 flex-1">
+                <p className="text-walnut/70 font-body text-sm mb-4">
                   {selectedProduct.node.description}
                 </p>
+
+                {/* Stock counter */}
+                {selectedStock !== null && (
+                  <div className="mb-4">
+                    <StockCounter quantity={selectedStock} />
+                  </div>
+                )}
 
                 {/* Thumbnail Gallery */}
                 {selectedProduct.node.images.edges.length > 1 && (
@@ -302,7 +358,12 @@ const Catalogue = () => {
                   </div>
                 )}
 
-                <div className="flex items-center justify-between pt-4 border-t border-border">
+                {/* Countdown Timer */}
+                <div className="mb-4">
+                  <CountdownTimer endDate={SALE_END_DATE} />
+                </div>
+
+                <div ref={addToCartButtonRef} className="flex items-center justify-between pt-4 border-t border-border">
                   <p className="font-display text-3xl text-accent">
                     R {parseFloat(selectedProduct.node.priceRange.minVariantPrice.amount).toFixed(0)}
                   </p>
@@ -312,10 +373,10 @@ const Catalogue = () => {
                       handleAddToCart(selectedProduct, e);
                       setSelectedProduct(null);
                     }}
-                    disabled={!selectedProduct.node.variants.edges[0]?.node.availableForSale || cartLoading}
+                    disabled={isSoldOut || cartLoading}
                   >
                     <ShoppingCart className="w-4 h-4 mr-2" />
-                    Add to Cart
+                    {isSoldOut ? "Sold Out" : "Add to Cart"}
                   </Button>
                 </div>
               </div>
@@ -323,6 +384,14 @@ const Catalogue = () => {
           )}
         </DialogContent>
       </Dialog>
+
+      {/* Sticky Add to Cart Bar */}
+      {selectedProduct && (
+        <StickyAddToCart
+          product={selectedProduct}
+          triggerRef={addToCartButtonRef as React.RefObject<HTMLElement>}
+        />
+      )}
     </section>
   );
 };
