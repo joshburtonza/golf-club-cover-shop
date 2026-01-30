@@ -61,13 +61,13 @@ const Pricing = () => {
   }
 
   return (
-    <section id="pricing" className="py-16 sm:py-24 bg-card">
-      <div className="container">
-        <div className="text-center mb-12">
-          <span className="text-accent font-body text-sm font-semibold tracking-widest uppercase">
+    <section id="pricing" className="py-12 sm:py-24 bg-card">
+      <div className="container px-4 sm:px-6">
+        <div className="text-center mb-8 sm:mb-12">
+          <span className="text-accent font-body text-xs sm:text-sm font-semibold tracking-widest uppercase">
             Pick Your Poison
           </span>
-          <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl mt-2 text-foreground">
+          <h2 className="font-display text-3xl sm:text-5xl lg:text-6xl mt-2 text-foreground">
             Simple Pricing
           </h2>
         </div>
@@ -79,7 +79,7 @@ const Pricing = () => {
             </div>
           </div>
         ) : (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 max-w-5xl mx-auto">
             {products?.map((product) => {
               const variant = product.node.variants.edges[0]?.node;
               const price = variant?.price;
@@ -91,13 +91,13 @@ const Pricing = () => {
               return (
                 <div 
                   key={product.node.id}
-                  className={`rounded-xl bg-background p-6 sm:p-8 shadow-card relative ${
+                  className={`rounded-xl bg-background p-4 sm:p-6 lg:p-8 shadow-card relative ${
                     isBundle || isBuildYourOwn ? 'border-2 border-accent shadow-elevated' : 'border border-border'
                   }`}
                 >
                   {isBundle && !isBuildYourOwn && (
                     <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                      <span className="gradient-gold text-foreground text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wide">
+                      <span className="gradient-gold text-foreground text-xs font-bold px-3 sm:px-4 py-1 sm:py-1.5 rounded-full uppercase tracking-wide whitespace-nowrap">
                         Save R500
                       </span>
                     </div>
@@ -105,43 +105,44 @@ const Pricing = () => {
 
                   {isBuildYourOwn && (
                     <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                      <span className="bg-walnut text-primary-foreground text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wide">
+                      <span className="bg-walnut text-primary-foreground text-xs font-bold px-3 sm:px-4 py-1 sm:py-1.5 rounded-full uppercase tracking-wide whitespace-nowrap">
                         Customise
                       </span>
                     </div>
                   )}
 
-                  <div className={`text-center mb-6 ${isBundle || isBuildYourOwn ? 'pt-2' : ''}`}>
-                    <h3 className="font-display text-2xl sm:text-3xl mb-2 text-foreground">{product.node.title}</h3>
+                  <div className={`text-center mb-4 sm:mb-6 ${isBundle || isBuildYourOwn ? 'pt-2' : ''}`}>
+                    <h3 className="font-display text-xl sm:text-2xl lg:text-3xl mb-1 sm:mb-2 text-foreground line-clamp-2">{product.node.title}</h3>
                     {product.node.description && (
-                      <p className="text-muted-foreground font-body text-sm line-clamp-2">
+                      <p className="text-muted-foreground font-body text-xs sm:text-sm line-clamp-2">
                         {product.node.description}
                       </p>
                     )}
                   </div>
 
                   {product.node.images.edges[0] && (
-                    <div className="mb-6 rounded-lg overflow-hidden bg-muted aspect-square">
+                    <div className="mb-4 sm:mb-6 rounded-lg overflow-hidden bg-muted aspect-square">
                       <img 
                         src={product.node.images.edges[0].node.url} 
                         alt={product.node.images.edges[0].node.altText || product.node.title}
                         className="w-full h-full object-cover"
+                        loading="lazy"
                       />
                     </div>
                   )}
 
-                  <div className="text-center mb-6">
-                    <span className={`font-display text-5xl sm:text-6xl ${isBundle || isBuildYourOwn ? 'text-accent' : 'text-foreground'}`}>
+                  <div className="text-center mb-4 sm:mb-6">
+                    <span className={`font-display text-4xl sm:text-5xl lg:text-6xl ${isBundle || isBuildYourOwn ? 'text-accent' : 'text-foreground'}`}>
                       R {parseFloat(price?.amount || '0').toFixed(0)}
                     </span>
                     {isBuildYourOwn && (
-                      <p className="text-muted-foreground font-body text-sm mt-2">
-                        Starting price • Build your perfect set
+                      <p className="text-muted-foreground font-body text-xs sm:text-sm mt-1 sm:mt-2">
+                        Starting price
                       </p>
                     )}
                     {isBundle && !isBuildYourOwn && (
-                      <p className="text-muted-foreground font-body text-sm mt-2">
-                        vs R1,200 buying separately
+                      <p className="text-muted-foreground font-body text-xs sm:text-sm mt-1 sm:mt-2">
+                        vs R1,200 separately
                       </p>
                     )}
                   </div>
@@ -149,12 +150,12 @@ const Pricing = () => {
                   <Button 
                     variant={isBundle || isBuildYourOwn ? "gold" : "walnutOutline"} 
                     size="lg" 
-                    className="w-full"
+                    className="w-full touch-target-lg text-sm sm:text-base"
                     onClick={() => variant && handleAddToCart(product, variant)}
                     disabled={!variant?.availableForSale || cartLoading}
                   >
                     <ShoppingCart className="w-4 h-4 mr-2" />
-                    Add to Cart — R {parseFloat(price?.amount || '0').toFixed(0)}
+                    Add — R {parseFloat(price?.amount || '0').toFixed(0)}
                   </Button>
                 </div>
               );

@@ -20,9 +20,9 @@ export const StockCounter = ({ productId, availableForSale, threshold = 14 }: St
 
   if (!availableForSale) {
     return (
-      <div className="flex items-center gap-2 bg-destructive/10 text-destructive px-3 py-2 rounded-lg font-body">
-        <XCircle className="w-4 h-4" />
-        <span className="font-bold uppercase">Sold Out</span>
+      <div className="flex items-center gap-1.5 sm:gap-2 bg-destructive/10 text-destructive px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg font-body text-xs sm:text-sm">
+        <XCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0" />
+        <span className="font-bold uppercase tracking-wide">Sold Out</span>
       </div>
     );
   }
@@ -30,10 +30,10 @@ export const StockCounter = ({ productId, availableForSale, threshold = 14 }: St
   if (stock === null || stock > threshold) return null;
 
   return (
-    <div className="flex items-center gap-2 bg-orange-100 text-orange-700 px-3 py-2 rounded-lg font-body animate-pulse">
-      <AlertTriangle className="w-4 h-4" />
+    <div className="flex items-center gap-1.5 sm:gap-2 bg-orange-100 text-orange-700 px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg font-body text-xs sm:text-sm">
+      <AlertTriangle className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0" />
       <span className="font-semibold">
-        Only <span className="font-bold">{stock}</span> left in stock!
+        Only <span className="font-bold">{stock}</span> left<span className="hidden sm:inline"> in stock</span>!
       </span>
     </div>
   );

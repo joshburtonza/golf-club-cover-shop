@@ -27,21 +27,21 @@ export const usePurchaseNotifications = ({ productName, enabled = true }: Purcha
       const product = productName || "a headcover";
 
       toast(
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
-            <ShoppingBag className="w-5 h-5 text-accent" />
+        <div className="flex items-center gap-2 sm:gap-3">
+          <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0">
+            <ShoppingBag className="w-4 h-4 sm:w-5 sm:h-5 text-accent" />
           </div>
-          <div>
-            <p className="font-semibold text-walnut">
+          <div className="min-w-0">
+            <p className="font-semibold text-walnut text-sm truncate">
               {name} from {city}
             </p>
-            <p className="text-sm text-walnut/70">just bought {product}!</p>
+            <p className="text-xs text-walnut/70 truncate">just bought {product}!</p>
           </div>
         </div>,
         {
           duration: 4000,
           position: "bottom-left",
-          className: "!bg-cream !border-accent/20",
+          className: "!bg-cream !border-accent/20 !max-w-[280px] sm:!max-w-sm",
         }
       );
     };

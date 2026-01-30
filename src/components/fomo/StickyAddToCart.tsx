@@ -46,7 +46,9 @@ export const StickyAddToCart = ({ product, triggerRef }: StickyAddToCartProps) =
       price: variant.price,
     });
 
-    toast.success(`${product.node.title} added to cart!`);
+    toast.success(`${product.node.title} added to cart!`, {
+      position: "top-center",
+    });
   };
 
   const variant = product.node.variants.edges[0]?.node;
@@ -56,15 +58,15 @@ export const StickyAddToCart = ({ product, triggerRef }: StickyAddToCartProps) =
 
   return (
     <div
-      className={`fixed bottom-0 left-0 right-0 bg-card border-t border-border shadow-lg z-50 transform transition-transform duration-300 ${
+      className={`fixed bottom-0 left-0 right-0 bg-card border-t border-border shadow-lg z-50 transform transition-transform duration-300 safe-bottom ${
         isVisible ? "translate-y-0" : "translate-y-full"
       }`}
     >
-      <div className="container py-3">
-        <div className="flex items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
+      <div className="container px-3 sm:px-6 py-2 sm:py-3">
+        <div className="flex items-center justify-between gap-2 sm:gap-4">
+          <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
             {productImage && (
-              <div className="w-12 h-12 rounded-lg overflow-hidden bg-muted/20 flex-shrink-0">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg overflow-hidden bg-muted/20 flex-shrink-0">
                 <img
                   src={productImage.url}
                   alt={product.node.title}
@@ -72,24 +74,21 @@ export const StickyAddToCart = ({ product, triggerRef }: StickyAddToCartProps) =
                 />
               </div>
             )}
-            <div className="hidden sm:block">
-              <h4 className="font-display text-sm text-walnut line-clamp-1">
+            <div className="min-w-0 flex-1">
+              <h4 className="font-display text-sm sm:text-base text-walnut truncate">
                 {product.node.title}
               </h4>
-              <p className="font-display text-lg text-accent">
+              <p className="font-display text-lg sm:text-xl text-accent">
                 R {parseFloat(price.amount).toFixed(0)}
               </p>
             </div>
-            <p className="font-display text-xl text-accent sm:hidden">
-              R {parseFloat(price.amount).toFixed(0)}
-            </p>
           </div>
           <Button
             variant="walnut"
             size="lg"
             onClick={handleAddToCart}
             disabled={isSoldOut || isLoading}
-            className="flex-shrink-0"
+            className="flex-shrink-0 touch-target-lg text-sm sm:text-base px-3 sm:px-6"
           >
             {isLoading ? (
               <Loader2 className="w-4 h-4 animate-spin" />
@@ -97,9 +96,8 @@ export const StickyAddToCart = ({ product, triggerRef }: StickyAddToCartProps) =
               "Sold Out"
             ) : (
               <>
-                <ShoppingCart className="w-4 h-4 mr-2" />
-                <span className="hidden sm:inline">Add to Cart</span>
-                <span className="sm:hidden">Add</span>
+                <ShoppingCart className="w-4 h-4 mr-1 sm:mr-2" />
+                <span>Add</span>
               </>
             )}
           </Button>
