@@ -89,9 +89,10 @@ const Catalogue = () => {
     setSelectedImageIndex(0);
   };
 
-  const getProductStock = (product: ShopifyProduct): number | null => {
+  // Stock is now simulated in StockCounter component based on product ID
+  const isProductSoldOut = (product: ShopifyProduct): boolean => {
     const variant = product.node.variants.edges[0]?.node;
-    return variant?.quantityAvailable ?? null;
+    return !variant?.availableForSale;
   };
 
   if (loading) {
@@ -124,8 +125,7 @@ const Catalogue = () => {
   }
 
   const selectedVariant = selectedProduct?.node.variants.edges[0]?.node;
-  const selectedStock = selectedProduct ? getProductStock(selectedProduct) : null;
-  const isSoldOut = selectedStock === 0 || !selectedVariant?.availableForSale;
+  const isSoldOut = selectedProduct ? isProductSoldOut(selectedProduct) : false;
 
   return (
     <section id="catalogue" className="py-16 sm:py-24 bg-cream">
@@ -182,8 +182,7 @@ const Catalogue = () => {
               const price = product.node.priceRange.minVariantPrice;
               const variant = product.node.variants.edges[0]?.node;
               const productImage = product.node.images.edges[0]?.node;
-              const stock = getProductStock(product);
-              const productSoldOut = stock === 0 || !variant?.availableForSale;
+              const productSoldOut = isProductSoldOut(product);
 
               return (
                 <div
@@ -208,12 +207,6 @@ const Catalogue = () => {
                     {productSoldOut && (
                       <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
                         <span className="text-white font-display text-xl uppercase">Sold Out</span>
-                      </div>
-                    )}
-                    {/* Low stock badge */}
-                    {stock !== null && stock > 0 && stock <= 14 && (
-                      <div className="absolute top-2 left-2 bg-orange-500 text-white text-xs px-2 py-1 rounded-full font-body font-semibold">
-                        Only {stock} left!
                       </div>
                     )}
                     {/* Image count badge */}
@@ -329,11 +322,12 @@ const Catalogue = () => {
                 </p>
 
                 {/* Stock counter */}
-                {selectedStock !== null && (
-                  <div className="mb-4">
-                    <StockCounter quantity={selectedStock} />
-                  </div>
-                )}
+                <div className="mb-4">
+                  <StockCounter 
+                    productId={selectedProduct.node.id} 
+                    availableForSale={selectedVariant?.availableForSale ?? false} 
+                  />
+                </div>
 
                 {/* Thumbnail Gallery */}
                 {selectedProduct.node.images.edges.length > 1 && (
