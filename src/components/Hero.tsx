@@ -2,8 +2,8 @@ import { Button } from "@/components/ui/button";
 import gilmoreSingle from "@/assets/gilmore-single.png";
 
 const Hero = () => {
-  const scrollToProduct = () => {
-    document.getElementById("product")?.scrollIntoView({ behavior: "smooth" });
+  const scrollToCatalogue = () => {
+    document.getElementById("catalogue")?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -32,10 +32,10 @@ const Hero = () => {
               We can't fix your swing. But we CAN make sure your clubs look better than your handicap.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <Button variant="walnut" size="xl" onClick={scrollToProduct}>
+              <Button variant="walnut" size="xl" onClick={scrollToCatalogue}>
                 Save Your Dignity
               </Button>
-              <Button variant="goldOutline" size="xl" onClick={scrollToProduct}>
+              <Button variant="goldOutline" size="xl" onClick={scrollToCatalogue}>
                 View Collection
               </Button>
             </div>
