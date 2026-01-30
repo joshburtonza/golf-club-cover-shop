@@ -9,12 +9,12 @@ const badges = [
   {
     icon: ShieldCheck,
     title: "Secure Checkout",
-    description: "100% protected payments",
+    description: "Safer than your course management",
   },
   {
     icon: RotateCcw,
     title: "30-Day Returns",
-    description: "Easy hassle-free returns",
+    description: "Easier than fixing your slice",
   },
 ];
 

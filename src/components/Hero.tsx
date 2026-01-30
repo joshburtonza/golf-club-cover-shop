@@ -19,26 +19,27 @@ const Hero = () => {
           {/* Text Content */}
           <div className="text-center lg:text-left order-2 lg:order-1">
             <span className="inline-block text-gold font-body text-sm font-semibold tracking-widest uppercase mb-4">
-              Limited Edition
+              For Every Golfer Who's Topped One
             </span>
             <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl xl:text-8xl leading-[0.9] mb-6">
-              Vintage Jersey
-              <span className="block text-gold">Headcovers</span>
+              TOPPED IT
+              <span className="block text-gold text-3xl sm:text-4xl lg:text-5xl mt-2">
+                Headcovers for the Rest of Us
+              </span>
             </h1>
             <p className="text-muted-foreground text-lg sm:text-xl max-w-md mx-auto lg:mx-0 mb-8 font-body">
-              Premium golf headcovers inspired by classic sports jerseys. 
-              Protect your clubs in style.
+              We can't fix your swing. But we CAN make sure your clubs look better than your handicap.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
               <Button variant="gold" size="xl" onClick={scrollToProduct}>
-                Shop Now
+                Save Your Dignity
               </Button>
               <Button variant="goldOutline" size="xl" onClick={scrollToProduct}>
                 View Collection
               </Button>
             </div>
             <p className="text-muted-foreground text-sm mt-6 font-body">
-              From <span className="text-gold font-semibold">R480</span> • Free shipping over R500
+              From <span className="text-gold font-semibold">R400</span> • Free shipping over R500
             </p>
           </div>
 

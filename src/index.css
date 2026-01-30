@@ -6,47 +6,49 @@
 
 @layer base {
   :root {
-    /* Core palette - Premium masculine golf aesthetic */
-    --background: 150 20% 6%;
+    /* Core palette - Topped It Premium Golf Aesthetic */
+    /* Background: #1a1a1a (dark charcoal) */
+    --background: 0 0% 10%;
     --foreground: 45 10% 95%;
 
-    --card: 150 15% 10%;
+    /* Card: slightly lighter charcoal */
+    --card: 0 0% 14%;
     --card-foreground: 45 10% 95%;
 
-    --popover: 150 15% 10%;
+    --popover: 0 0% 14%;
     --popover-foreground: 45 10% 95%;
 
-    /* Primary - Rich forest green */
-    --primary: 152 45% 25%;
+    /* Primary - Forest Green #2d5a27 */
+    --primary: 113 40% 25%;
     --primary-foreground: 45 10% 95%;
 
     /* Secondary - Deep charcoal */
-    --secondary: 150 10% 12%;
+    --secondary: 0 0% 12%;
     --secondary-foreground: 45 10% 90%;
 
     /* Muted surfaces */
-    --muted: 150 10% 15%;
-    --muted-foreground: 150 10% 60%;
+    --muted: 0 0% 16%;
+    --muted-foreground: 0 0% 55%;
 
-    /* Accent - Premium gold */
-    --accent: 43 90% 55%;
-    --accent-foreground: 150 20% 6%;
+    /* Accent - Premium Gold #c9a227 */
+    --accent: 45 72% 47%;
+    --accent-foreground: 0 0% 10%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 150 15% 20%;
-    --input: 150 15% 18%;
-    --ring: 43 90% 55%;
+    --border: 0 0% 20%;
+    --input: 0 0% 18%;
+    --ring: 45 72% 47%;
 
     --radius: 0.5rem;
 
     /* Custom tokens */
-    --gold: 43 90% 55%;
-    --gold-dark: 40 85% 45%;
-    --forest: 152 45% 25%;
-    --forest-light: 150 35% 35%;
-    --charcoal: 150 10% 8%;
+    --gold: 45 72% 47%;
+    --gold-dark: 42 70% 40%;
+    --forest: 113 40% 25%;
+    --forest-light: 113 35% 35%;
+    --charcoal: 0 0% 8%;
     --cream: 45 20% 92%;
 
     /* Gradients */

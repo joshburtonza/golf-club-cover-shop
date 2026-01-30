@@ -1,10 +1,33 @@
 import { useState } from "react";
 
 const images = [
-  { id: 1, alt: "Driver headcover front view" },
-  { id: 2, alt: "Driver headcover side view" },
-  { id: 3, alt: "3-pack collection" },
-  { id: 4, alt: "Detail stitching" },
+  { id: 1, alt: "The Mulligan - Driver headcover front view" },
+  { id: 2, alt: "Premium synthetic leather detail" },
+  { id: 3, alt: "The Scramble - 3-pack collection" },
+  { id: 4, alt: "Magnetic closure close-up" },
+];
+
+const features = [
+  {
+    title: "Fits drivers up to 460cc",
+    description: "Unlike that slice that fit perfectly into the car park",
+  },
+  {
+    title: "Premium synthetic leather",
+    description: "Softer than your playing partners' heckling",
+  },
+  {
+    title: "Fleece interior lining",
+    description: "Protects your club like you protect your ego",
+  },
+  {
+    title: "Magnetic closure",
+    description: "Stays on better than your tempo",
+  },
+  {
+    title: "Numbered designs (1, 3, 5)",
+    description: "So you know which club to blame",
+  },
 ];
 
 const ProductGallery = () => {
@@ -18,7 +41,7 @@ const ProductGallery = () => {
             The Collection
           </span>
           <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl mt-2">
-            Crafted For Champions
+            What You Get
           </h2>
         </div>
 
@@ -50,9 +73,9 @@ const ProductGallery = () => {
                 >
                   <div className="w-full h-full flex items-center justify-center text-2xl">
                     {index === 0 && "🎯"}
-                    {index === 1 && "👀"}
+                    {index === 1 && "✨"}
                     {index === 2 && "📦"}
-                    {index === 3 && "✨"}
+                    {index === 3 && "🧲"}
                   </div>
                 </button>
               ))}
@@ -63,41 +86,33 @@ const ProductGallery = () => {
           <div className="space-y-6">
             <div>
               <h3 className="font-display text-3xl sm:text-4xl mb-2">
-                Vintage Jersey Driver Cover
+                The Mulligan - Premium Headcover
               </h3>
               <p className="text-muted-foreground font-body text-lg">
-                Premium quality headcover with classic sports jersey styling
+                We can't fix your swing. But we CAN make your clubs look better than your handicap.
               </p>
             </div>
 
             <div className="space-y-4 py-6 border-y border-border">
-              <div className="flex items-center gap-3">
-                <div className="w-2 h-2 rounded-full bg-gold" />
-                <span className="font-body">Fits drivers up to 460cc</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <div className="w-2 h-2 rounded-full bg-gold" />
-                <span className="font-body">Premium synthetic leather exterior</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <div className="w-2 h-2 rounded-full bg-gold" />
-                <span className="font-body">Soft fleece interior lining</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <div className="w-2 h-2 rounded-full bg-gold" />
-                <span className="font-body">Magnetic closure for secure fit</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <div className="w-2 h-2 rounded-full bg-gold" />
-                <span className="font-body">Numbered design (1, 3, 5 available)</span>
-              </div>
+              {features.map((feature) => (
+                <div key={feature.title} className="flex items-start gap-3">
+                  <div className="w-2 h-2 rounded-full bg-gold mt-2 shrink-0" />
+                  <div>
+                    <span className="font-body font-medium">{feature.title}</span>
+                    <span className="text-muted-foreground font-body"> — {feature.description}</span>
+                  </div>
+                </div>
+              ))}
             </div>
 
-            <p className="text-muted-foreground font-body leading-relaxed">
-              Inspired by vintage sports jerseys from the golden era, these headcovers 
-              bring retro style to your golf bag. Each cover is handcrafted with 
-              attention to detail, featuring bold numbering and classic athletic aesthetics.
-            </p>
+            <div className="bg-card border border-gold/30 rounded-lg p-4">
+              <p className="text-gold font-body text-sm font-semibold mb-1">
+                "Finally, something in my golf bag that doesn't embarrass me."
+              </p>
+              <p className="text-muted-foreground font-body text-xs">
+                — Thabo M., Johannesburg
+              </p>
+            </div>
           </div>
         </div>
       </div>
