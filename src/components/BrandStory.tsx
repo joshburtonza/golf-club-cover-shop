@@ -33,7 +33,7 @@ const BrandStory = () => {
             </div>
             <div className="flex items-center gap-2">
               <span className="text-accent">📦</span>
-              <span className="text-muted-foreground">3-5 Day Delivery</span>
+              <span className="text-muted-foreground">6-9 Day Delivery</span>
             </div>
             <div className="flex items-center gap-2">
               <span className="text-accent">🔄</span>

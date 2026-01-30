@@ -4,7 +4,7 @@ const comparisons = [
   { benefit: "Premium synthetic leather", us: true, others: true },
   { benefit: "Magnetic closure", us: true, others: false },
   { benefit: "Under R500 for a single", us: true, others: false },
-  { benefit: "Ships in 3-5 days across SA", us: true, others: false },
+  { benefit: "Ships in 6-9 days across SA", us: true, others: false },
   { benefit: "30-day returns, no questions", us: true, others: false },
   { benefit: "Sense of humor included", us: true, others: false },
 ];
