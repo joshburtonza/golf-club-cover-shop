@@ -81,12 +81,16 @@ const Pricing = () => {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 max-w-5xl mx-auto">
             {products?.map((product) => {
-              const variant = product.node.variants.edges[0]?.node;
-              const price = variant?.price;
+              const isBuildYourOwn = product.node.title.toLowerCase().includes('build your own');
               const isBundle = product.node.title.toLowerCase().includes('pack') || 
                               product.node.title.toLowerCase().includes('bundle') ||
                               product.node.title.toLowerCase().includes('scramble');
-              const isBuildYourOwn = product.node.title.toLowerCase().includes('build your own');
+              
+              // For Build Your Own Bundle, use the 3-piece variant (R669) instead of first variant
+              const variant = isBuildYourOwn 
+                ? product.node.variants.edges.find(v => v.node.title.toLowerCase().includes('3 cover'))?.node || product.node.variants.edges[0]?.node
+                : product.node.variants.edges[0]?.node;
+              const price = variant?.price;
               
               return (
                 <div 
