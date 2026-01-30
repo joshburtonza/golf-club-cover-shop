@@ -52,7 +52,7 @@ export const StickyAddToCart = ({ product, triggerRef }: StickyAddToCartProps) =
   const variant = product.node.variants.edges[0]?.node;
   const price = product.node.priceRange.minVariantPrice;
   const productImage = product.node.images.edges[0]?.node;
-  const isSoldOut = variant?.quantityAvailable === 0 || !variant?.availableForSale;
+  const isSoldOut = !variant?.availableForSale;
 
   return (
     <div
