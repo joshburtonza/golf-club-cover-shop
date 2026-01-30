@@ -92,10 +92,7 @@ export const ShippingCountdown = ({
             <span className="font-mono font-bold text-accent">
               {pad(timeLeft.hours)}:{pad(timeLeft.minutes)}:{pad(timeLeft.seconds)}
             </span>
-            <span>for delivery by</span>
-            <span className="font-semibold text-accent">
-              {formatDeliveryDate(deliveryDate)}
-            </span>
+            <span>— 6-9 business days directly to your door</span>
           </span>
         </div>
       </div>
