@@ -209,7 +209,7 @@ const Catalogue = () => {
           </p>
         </div>
 
-        <div className="grid gap-16">
+        <div className="grid gap-8">
           {styles.map((style) => (
             <div key={style.id} className="bg-card border border-border rounded-2xl p-6 sm:p-8 shadow-card">
               <div className="text-center mb-8">
@@ -217,71 +217,78 @@ const Catalogue = () => {
                 <p className="text-walnut/60 font-body">{style.subtitle}</p>
               </div>
 
-              <div className="grid lg:grid-cols-2 gap-8">
-                {/* Image Gallery */}
-                {style.images.length > 0 && (
-                  <div className="space-y-4">
-                    <div className="aspect-square rounded-lg bg-cream/50 border border-border overflow-hidden">
-                      <img
-                        src={style.images[selectedImages[style.id] || 0]?.src}
-                        alt={style.images[selectedImages[style.id] || 0]?.alt}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                    {style.images.length > 1 && (
-                      <div className="grid grid-cols-4 gap-2">
-                        {style.images.slice(0, 4).map((image, index) => (
-                          <button
-                            key={image.id}
-                            onClick={() => setSelectedImages((prev) => ({ ...prev, [style.id]: index }))}
-                            className={`aspect-square rounded-md overflow-hidden border-2 transition-all duration-200 ${
-                              selectedImages[style.id] === index
-                                ? "border-accent shadow-gold"
-                                : "border-border hover:border-walnut/40"
-                            }`}
-                          >
-                            <img src={image.src} alt={image.alt} className="w-full h-full object-cover" />
-                          </button>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                )}
-
-                {/* Products List */}
-                <div className="space-y-4">
-                  {style.products.map((product) => {
-                    const price = product.node.priceRange.minVariantPrice;
-                    const variant = product.node.variants.edges[0]?.node;
-
-                    return (
-                      <div
-                        key={product.node.id}
-                        className="flex items-center justify-between p-4 bg-cream/50 rounded-lg border border-border"
+              {/* Style images gallery - only show if we have local images */}
+              {style.images.length > 0 && (
+                <div className="mb-8">
+                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+                    {style.images.slice(0, 4).map((image, index) => (
+                      <button
+                        key={image.id}
+                        onClick={() => setSelectedImages((prev) => ({ ...prev, [style.id]: index }))}
+                        className={`aspect-square rounded-lg overflow-hidden border-2 transition-all duration-200 ${
+                          selectedImages[style.id] === index
+                            ? "border-accent shadow-gold ring-2 ring-accent/20"
+                            : "border-border hover:border-walnut/40"
+                        }`}
                       >
-                        <div className="flex-1">
-                          <h4 className="font-display text-lg text-walnut">{product.node.title}</h4>
-                          <p className="text-walnut/60 font-body text-sm line-clamp-2">
-                            {product.node.description}
-                          </p>
-                          <p className="font-display text-xl text-accent mt-1">
+                        <img src={image.src} alt={image.alt} className="w-full h-full object-cover" />
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Products Grid */}
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {style.products.map((product) => {
+                  const price = product.node.priceRange.minVariantPrice;
+                  const variant = product.node.variants.edges[0]?.node;
+                  const productImage = product.node.images.edges[0]?.node;
+
+                  return (
+                    <div
+                      key={product.node.id}
+                      className="flex flex-col bg-cream/50 rounded-xl border border-border overflow-hidden"
+                    >
+                      {/* Product Image */}
+                      <div className="aspect-square bg-muted/20 overflow-hidden">
+                        {productImage ? (
+                          <img
+                            src={productImage.url}
+                            alt={productImage.altText || product.node.title}
+                            className="w-full h-full object-cover"
+                          />
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center bg-walnut/5">
+                            <span className="text-walnut/30 font-display text-lg">No Image</span>
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Product Info */}
+                      <div className="p-4 flex flex-col flex-1">
+                        <h4 className="font-display text-lg text-walnut mb-1">{product.node.title}</h4>
+                        <p className="text-walnut/60 font-body text-sm line-clamp-2 flex-1">
+                          {product.node.description}
+                        </p>
+                        <div className="flex items-center justify-between mt-4">
+                          <p className="font-display text-2xl text-accent">
                             R {parseFloat(price.amount).toFixed(0)}
                           </p>
+                          <Button
+                            variant="walnut"
+                            size="sm"
+                            onClick={() => handleAddToCart(product)}
+                            disabled={!variant?.availableForSale || cartLoading}
+                          >
+                            <ShoppingCart className="w-4 h-4 mr-2" />
+                            Add
+                          </Button>
                         </div>
-                        <Button
-                          variant="walnut"
-                          size="sm"
-                          onClick={() => handleAddToCart(product)}
-                          disabled={!variant?.availableForSale || cartLoading}
-                          className="ml-4 flex-shrink-0"
-                        >
-                          <ShoppingCart className="w-4 h-4 mr-2" />
-                          Add
-                        </Button>
                       </div>
-                    );
-                  })}
-                </div>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           ))}
