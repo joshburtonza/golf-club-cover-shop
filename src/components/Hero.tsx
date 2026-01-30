@@ -7,7 +7,7 @@ const Hero = () => {
   };
 
   return (
-    <section className="relative min-h-[85vh] sm:min-h-[90vh] flex items-center gradient-warm overflow-hidden py-8 sm:py-0">
+    <section className="relative min-h-[85vh] sm:min-h-[90vh] flex items-center gradient-warm overflow-hidden py-8 sm:py-0 pt-16 sm:pt-20">
       {/* Subtle pattern overlay */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0" style={{

@@ -4,6 +4,9 @@ import { Badge } from "@/components/ui/badge";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { ShoppingCart, Minus, Plus, Trash2, ExternalLink, Loader2 } from "lucide-react";
 import { useCartStore } from "@/stores/cartStore";
+import { FreeShippingProgress } from "@/components/fomo/FreeShippingProgress";
+import { CartUpsells } from "@/components/cart/CartUpsells";
+import { PaymentIcons } from "@/components/cart/PaymentIcons";
 
 export const CartDrawer = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -50,6 +53,7 @@ export const CartDrawer = () => {
             {totalItems === 0 ? "Your cart is empty" : `${totalItems} item${totalItems !== 1 ? 's' : ''} in your cart`}
           </SheetDescription>
         </SheetHeader>
+        
         <div className="flex flex-col flex-1 pt-4 sm:pt-6 min-h-0 overflow-hidden">
           {items.length === 0 ? (
             <div className="flex-1 flex items-center justify-center p-4">
@@ -63,6 +67,11 @@ export const CartDrawer = () => {
             </div>
           ) : (
             <>
+              {/* Free Shipping Progress Bar */}
+              <div className="px-4 sm:px-6">
+                <FreeShippingProgress currentTotal={totalPrice} threshold={1000} />
+              </div>
+
               <div className="flex-1 overflow-y-auto px-4 sm:px-6 min-h-0 scroll-smooth-touch">
                 <div className="space-y-3 sm:space-y-4">
                   {items.map((item) => (
@@ -127,6 +136,9 @@ export const CartDrawer = () => {
                   ))}
                 </div>
               </div>
+
+              {/* Cart Upsells */}
+              <CartUpsells cartItems={items} />
               
               {/* Checkout section - sticky at bottom with safe area */}
               <div className="flex-shrink-0 p-4 sm:p-6 pt-4 border-t border-border bg-card safe-bottom">
@@ -150,9 +162,9 @@ export const CartDrawer = () => {
                     </>
                   )}
                 </Button>
-                <p className="text-center text-xs text-muted-foreground mt-3 font-body">
-                  Secure checkout via Shopify
-                </p>
+                
+                {/* Payment Icons */}
+                <PaymentIcons />
               </div>
             </>
           )}
