@@ -132,7 +132,7 @@ const Pricing = () => {
 
                   <div className="text-center mb-6">
                     <span className={`font-display text-5xl sm:text-6xl ${isBundle || isBuildYourOwn ? 'text-accent' : 'text-foreground'}`}>
-                      {price?.currencyCode} {parseFloat(price?.amount || '0').toFixed(0)}
+                      R {parseFloat(price?.amount || '0').toFixed(0)}
                     </span>
                     {isBuildYourOwn && (
                       <p className="text-muted-foreground font-body text-sm mt-2">
@@ -154,7 +154,7 @@ const Pricing = () => {
                     disabled={!variant?.availableForSale || cartLoading}
                   >
                     <ShoppingCart className="w-4 h-4 mr-2" />
-                    Add to Cart — {price?.currencyCode} {parseFloat(price?.amount || '0').toFixed(0)}
+                    Add to Cart — R {parseFloat(price?.amount || '0').toFixed(0)}
                   </Button>
                 </div>
               );
