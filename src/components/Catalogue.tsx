@@ -1,46 +1,18 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
-import { ShoppingCart, Loader2 } from "lucide-react";
+import { ShoppingCart, Loader2, ChevronLeft, ChevronRight, X } from "lucide-react";
 import { storefrontApiRequest, PRODUCTS_QUERY, ShopifyProduct } from "@/lib/shopify";
 import { useCartStore } from "@/stores/cartStore";
 import { toast } from "sonner";
-
-// Local product images by style
-import eggplantMonster1 from "@/assets/eggplant-monster-1.png";
-import eggplantMonster2 from "@/assets/eggplant-monster-2.png";
-import eggplantMonster3 from "@/assets/eggplant-monster-3.png";
-import bomb1 from "@/assets/bomb-1.png";
-import bomb2 from "@/assets/bomb-2.png";
-import bomb3 from "@/assets/bomb-3.png";
-import bomb4 from "@/assets/bomb-4.png";
-
-const LOCAL_STYLE_IMAGES: Record<string, { src: string; alt: string }[]> = {
-  "eggplant-monster": [
-    { src: eggplantMonster1, alt: "Eggplant Monster headcover on golf cart" },
-    { src: eggplantMonster2, alt: "Eggplant Monster headcover set" },
-    { src: eggplantMonster3, alt: "Eggplant Monster headcover closeup" },
-  ],
-  "bomb": [
-    { src: bomb1, alt: "BOMB headcover set at doorway" },
-    { src: bomb2, alt: "BOMB headcover collection" },
-    { src: bomb3, alt: "BOMB headcover at car trunk" },
-    { src: bomb4, alt: "BOMB headcover with golf bag" },
-  ],
-};
-
-interface HeadcoverStyle {
-  id: string;
-  name: string;
-  subtitle: string;
-  products: ShopifyProduct[];
-  images: { id: number; src: string; alt: string }[];
-}
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 
 const Catalogue = () => {
-  const [styles, setStyles] = useState<HeadcoverStyle[]>([]);
+  const [products, setProducts] = useState<ShopifyProduct[]>([]);
   const [loading, setLoading] = useState(true);
-  const [selectedImages, setSelectedImages] = useState<Record<string, number>>({});
+  const [selectedProduct, setSelectedProduct] = useState<ShopifyProduct | null>(null);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const { addItem, isLoading: cartLoading } = useCartStore();
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -51,90 +23,15 @@ const Catalogue = () => {
           return;
         }
 
-        const products: ShopifyProduct[] = data.data.products.edges;
-        
-        // Group products by style (based on title patterns)
-        const styleGroups: Record<string, ShopifyProduct[]> = {};
-        
-        products.forEach((product) => {
-          const title = product.node.title.toLowerCase();
-          let styleName = "Other";
-          
-          if (title.includes("gilmore")) {
-            styleName = "Gilmore 18";
-          } else if (title.includes("lucky") || title.includes("clover")) {
-            styleName = "100% Lucky";
-          } else if (title.includes("eggplant") || title.includes("monster")) {
-            styleName = "Eggplant Monster";
-          } else if (title.includes("bomb")) {
-            styleName = "BOMB";
-          } else if (title.includes("lily") || title.includes("floral")) {
-            styleName = "Lily Floral";
-          } else if (title.includes("hibiscus") || title.includes("hello golf")) {
-            styleName = "Hello Golf Hibiscus";
-          } else if (title.includes("bundle") || title.includes("build your own")) {
-            return; // Skip bundle products in catalogue
+        // Filter out bundle products, keep only single headcovers
+        const allProducts: ShopifyProduct[] = data.data.products.edges.filter(
+          (product: ShopifyProduct) => {
+            const title = product.node.title.toLowerCase();
+            return !title.includes("bundle") && !title.includes("build your own");
           }
-          
-          if (!styleGroups[styleName]) {
-            styleGroups[styleName] = [];
-          }
-          styleGroups[styleName].push(product);
-        });
+        );
 
-        // Convert to HeadcoverStyle array
-        const stylesArray: HeadcoverStyle[] = Object.entries(styleGroups).map(([name, prods]) => {
-          const styleId = name.toLowerCase().replace(/\s+/g, "-");
-          
-          // Use local images if available, otherwise use Shopify images
-          const localImages = LOCAL_STYLE_IMAGES[styleId];
-          let allImages: { id: number; src: string; alt: string }[] = [];
-          
-          if (localImages && localImages.length > 0) {
-            allImages = localImages.map((img, index) => ({
-              id: index + 1,
-              src: img.src,
-              alt: img.alt,
-            }));
-          } else {
-            let imageId = 1;
-            prods.forEach((product) => {
-              product.node.images.edges.forEach((img) => {
-                allImages.push({
-                  id: imageId++,
-                  src: img.node.url,
-                  alt: img.node.altText || product.node.title,
-                });
-              });
-            });
-          }
-
-          const subtitles: Record<string, string> = {
-            "Gilmore 18": "Black & Gold • Jersey Style",
-            "100% Lucky": "White & Green • Shamrock Style",
-            "Eggplant Monster": "Purple Fuzzy • Character Style",
-            "BOMB": "White & Red • Explosion Style",
-            "Lily Floral": "White • Embroidered Flowers",
-            "Hello Golf Hibiscus": "Pink Quilted • Tropical Style",
-          };
-
-          return {
-            id: styleId,
-            name,
-            subtitle: subtitles[name] || "Premium Headcovers",
-            products: prods,
-            images: allImages,
-          };
-        });
-
-        setStyles(stylesArray);
-        
-        // Initialize selected images
-        const initialSelected: Record<string, number> = {};
-        stylesArray.forEach((style) => {
-          initialSelected[style.id] = 0;
-        });
-        setSelectedImages(initialSelected);
+        setProducts(allProducts);
       } catch (error) {
         console.error("Error fetching products:", error);
         toast.error("Failed to load catalogue");
@@ -146,7 +43,8 @@ const Catalogue = () => {
     fetchProducts();
   }, []);
 
-  const handleAddToCart = (product: ShopifyProduct) => {
+  const handleAddToCart = (product: ShopifyProduct, e: React.MouseEvent) => {
+    e.stopPropagation();
     const variant = product.node.variants.edges[0]?.node;
     if (!variant) {
       toast.error("Product not available");
@@ -165,6 +63,21 @@ const Catalogue = () => {
     toast.success(`${product.node.title} added to cart!`);
   };
 
+  const scroll = (direction: "left" | "right") => {
+    if (scrollContainerRef.current) {
+      const scrollAmount = 320;
+      scrollContainerRef.current.scrollBy({
+        left: direction === "left" ? -scrollAmount : scrollAmount,
+        behavior: "smooth",
+      });
+    }
+  };
+
+  const openProductGallery = (product: ShopifyProduct) => {
+    setSelectedProduct(product);
+    setSelectedImageIndex(0);
+  };
+
   if (loading) {
     return (
       <section id="catalogue" className="py-16 sm:py-24 bg-cream">
@@ -177,7 +90,7 @@ const Catalogue = () => {
     );
   }
 
-  if (styles.length === 0) {
+  if (products.length === 0) {
     return (
       <section id="catalogue" className="py-16 sm:py-24 bg-cream">
         <div className="container">
@@ -209,91 +122,207 @@ const Catalogue = () => {
           </p>
         </div>
 
-        <div className="grid gap-8">
-          {styles.map((style) => (
-            <div key={style.id} className="bg-card border border-border rounded-2xl p-6 sm:p-8 shadow-card">
-              <div className="text-center mb-8">
-                <h3 className="font-display text-3xl sm:text-4xl text-walnut">{style.name}</h3>
-                <p className="text-walnut/60 font-body">{style.subtitle}</p>
+        {/* Single Product Card Container */}
+        <div className="bg-card border border-border rounded-2xl p-6 sm:p-8 shadow-card">
+          <div className="flex items-center justify-between mb-6">
+            <div>
+              <h3 className="font-display text-2xl sm:text-3xl text-walnut">Premium Headcovers</h3>
+              <p className="text-walnut/60 font-body text-sm">Click any product to view gallery</p>
+            </div>
+            <div className="flex gap-2">
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={() => scroll("left")}
+                className="rounded-full border-walnut/20 hover:bg-walnut/10"
+              >
+                <ChevronLeft className="w-5 h-5 text-walnut" />
+              </Button>
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={() => scroll("right")}
+                className="rounded-full border-walnut/20 hover:bg-walnut/10"
+              >
+                <ChevronRight className="w-5 h-5 text-walnut" />
+              </Button>
+            </div>
+          </div>
+
+          {/* Horizontal Scrollable Product List */}
+          <div
+            ref={scrollContainerRef}
+            className="flex gap-4 overflow-x-auto scrollbar-hide pb-4 snap-x snap-mandatory"
+            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+          >
+            {products.map((product) => {
+              const price = product.node.priceRange.minVariantPrice;
+              const variant = product.node.variants.edges[0]?.node;
+              const productImage = product.node.images.edges[0]?.node;
+
+              return (
+                <div
+                  key={product.node.id}
+                  onClick={() => openProductGallery(product)}
+                  className="flex-shrink-0 w-64 sm:w-72 flex flex-col bg-cream/50 rounded-xl border border-border overflow-hidden cursor-pointer hover:shadow-lg hover:border-accent/30 transition-all duration-300 snap-start group"
+                >
+                  {/* Product Image */}
+                  <div className="aspect-square bg-muted/20 overflow-hidden relative">
+                    {productImage ? (
+                      <img
+                        src={productImage.url}
+                        alt={productImage.altText || product.node.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center bg-walnut/5">
+                        <span className="text-walnut/30 font-display text-lg">No Image</span>
+                      </div>
+                    )}
+                    {/* Image count badge */}
+                    {product.node.images.edges.length > 1 && (
+                      <div className="absolute bottom-2 right-2 bg-walnut/80 text-cream text-xs px-2 py-1 rounded-full font-body">
+                        +{product.node.images.edges.length - 1} photos
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Product Info */}
+                  <div className="p-4 flex flex-col flex-1">
+                    <h4 className="font-display text-lg text-walnut mb-1 line-clamp-1">
+                      {product.node.title}
+                    </h4>
+                    <p className="text-walnut/60 font-body text-sm line-clamp-2 flex-1">
+                      {product.node.description}
+                    </p>
+                    <div className="flex items-center justify-between mt-4">
+                      <p className="font-display text-2xl text-accent">
+                        R {parseFloat(price.amount).toFixed(0)}
+                      </p>
+                      <Button
+                        variant="walnut"
+                        size="sm"
+                        onClick={(e) => handleAddToCart(product, e)}
+                        disabled={!variant?.availableForSale || cartLoading}
+                      >
+                        <ShoppingCart className="w-4 h-4 mr-2" />
+                        Add
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+
+      {/* Product Gallery Modal */}
+      <Dialog open={!!selectedProduct} onOpenChange={() => setSelectedProduct(null)}>
+        <DialogContent className="max-w-4xl p-0 bg-card border-border overflow-hidden">
+          <DialogTitle className="sr-only">
+            {selectedProduct?.node.title || "Product Gallery"}
+          </DialogTitle>
+          {selectedProduct && (
+            <div className="flex flex-col lg:flex-row">
+              {/* Main Image */}
+              <div className="flex-1 bg-muted/10 aspect-square lg:aspect-auto lg:min-h-[500px] relative">
+                {selectedProduct.node.images.edges[selectedImageIndex]?.node ? (
+                  <img
+                    src={selectedProduct.node.images.edges[selectedImageIndex].node.url}
+                    alt={selectedProduct.node.images.edges[selectedImageIndex].node.altText || selectedProduct.node.title}
+                    className="w-full h-full object-contain"
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center">
+                    <span className="text-walnut/30 font-display">No Image</span>
+                  </div>
+                )}
+
+                {/* Navigation arrows */}
+                {selectedProduct.node.images.edges.length > 1 && (
+                  <>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="absolute left-2 top-1/2 -translate-y-1/2 bg-cream/80 hover:bg-cream rounded-full"
+                      onClick={() =>
+                        setSelectedImageIndex((prev) =>
+                          prev === 0 ? selectedProduct.node.images.edges.length - 1 : prev - 1
+                        )
+                      }
+                    >
+                      <ChevronLeft className="w-5 h-5 text-walnut" />
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="absolute right-2 top-1/2 -translate-y-1/2 bg-cream/80 hover:bg-cream rounded-full"
+                      onClick={() =>
+                        setSelectedImageIndex((prev) =>
+                          prev === selectedProduct.node.images.edges.length - 1 ? 0 : prev + 1
+                        )
+                      }
+                    >
+                      <ChevronRight className="w-5 h-5 text-walnut" />
+                    </Button>
+                  </>
+                )}
               </div>
 
-              {/* Style images gallery - only show if we have local images */}
-              {style.images.length > 0 && (
-                <div className="mb-8">
-                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-                    {style.images.slice(0, 4).map((image, index) => (
+              {/* Product Info Panel */}
+              <div className="lg:w-80 p-6 flex flex-col">
+                <h3 className="font-display text-2xl text-walnut mb-2">
+                  {selectedProduct.node.title}
+                </h3>
+                <p className="text-walnut/70 font-body text-sm mb-4 flex-1">
+                  {selectedProduct.node.description}
+                </p>
+
+                {/* Thumbnail Gallery */}
+                {selectedProduct.node.images.edges.length > 1 && (
+                  <div className="flex gap-2 mb-4 overflow-x-auto pb-2">
+                    {selectedProduct.node.images.edges.map((image, index) => (
                       <button
-                        key={image.id}
-                        onClick={() => setSelectedImages((prev) => ({ ...prev, [style.id]: index }))}
-                        className={`aspect-square rounded-lg overflow-hidden border-2 transition-all duration-200 ${
-                          selectedImages[style.id] === index
-                            ? "border-accent shadow-gold ring-2 ring-accent/20"
+                        key={index}
+                        onClick={() => setSelectedImageIndex(index)}
+                        className={`flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden border-2 transition-all ${
+                          selectedImageIndex === index
+                            ? "border-accent ring-2 ring-accent/20"
                             : "border-border hover:border-walnut/40"
                         }`}
                       >
-                        <img src={image.src} alt={image.alt} className="w-full h-full object-cover" />
+                        <img
+                          src={image.node.url}
+                          alt={image.node.altText || `${selectedProduct.node.title} ${index + 1}`}
+                          className="w-full h-full object-cover"
+                        />
                       </button>
                     ))}
                   </div>
+                )}
+
+                <div className="flex items-center justify-between pt-4 border-t border-border">
+                  <p className="font-display text-3xl text-accent">
+                    R {parseFloat(selectedProduct.node.priceRange.minVariantPrice.amount).toFixed(0)}
+                  </p>
+                  <Button
+                    variant="walnut"
+                    onClick={(e) => {
+                      handleAddToCart(selectedProduct, e);
+                      setSelectedProduct(null);
+                    }}
+                    disabled={!selectedProduct.node.variants.edges[0]?.node.availableForSale || cartLoading}
+                  >
+                    <ShoppingCart className="w-4 h-4 mr-2" />
+                    Add to Cart
+                  </Button>
                 </div>
-              )}
-
-              {/* Products Grid */}
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {style.products.map((product) => {
-                  const price = product.node.priceRange.minVariantPrice;
-                  const variant = product.node.variants.edges[0]?.node;
-                  const productImage = product.node.images.edges[0]?.node;
-
-                  return (
-                    <div
-                      key={product.node.id}
-                      className="flex flex-col bg-cream/50 rounded-xl border border-border overflow-hidden"
-                    >
-                      {/* Product Image */}
-                      <div className="aspect-square bg-muted/20 overflow-hidden">
-                        {productImage ? (
-                          <img
-                            src={productImage.url}
-                            alt={productImage.altText || product.node.title}
-                            className="w-full h-full object-cover"
-                          />
-                        ) : (
-                          <div className="w-full h-full flex items-center justify-center bg-walnut/5">
-                            <span className="text-walnut/30 font-display text-lg">No Image</span>
-                          </div>
-                        )}
-                      </div>
-
-                      {/* Product Info */}
-                      <div className="p-4 flex flex-col flex-1">
-                        <h4 className="font-display text-lg text-walnut mb-1">{product.node.title}</h4>
-                        <p className="text-walnut/60 font-body text-sm line-clamp-2 flex-1">
-                          {product.node.description}
-                        </p>
-                        <div className="flex items-center justify-between mt-4">
-                          <p className="font-display text-2xl text-accent">
-                            R {parseFloat(price.amount).toFixed(0)}
-                          </p>
-                          <Button
-                            variant="walnut"
-                            size="sm"
-                            onClick={() => handleAddToCart(product)}
-                            disabled={!variant?.availableForSale || cartLoading}
-                          >
-                            <ShoppingCart className="w-4 h-4 mr-2" />
-                            Add
-                          </Button>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
               </div>
             </div>
-          ))}
-        </div>
-      </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </section>
   );
 };
