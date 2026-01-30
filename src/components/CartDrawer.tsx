@@ -69,7 +69,7 @@ export const CartDrawer = () => {
             <>
               {/* Free Shipping Progress Bar */}
               <div className="px-4 sm:px-6">
-                <FreeShippingProgress currentTotal={totalPrice} threshold={1000} />
+                <FreeShippingProgress currentTotal={totalPrice} threshold={500} />
               </div>
 
               <div className="flex-1 overflow-y-auto px-4 sm:px-6 min-h-0 scroll-smooth-touch">
