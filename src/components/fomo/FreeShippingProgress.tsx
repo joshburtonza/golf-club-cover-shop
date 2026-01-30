@@ -8,7 +8,7 @@ interface FreeShippingProgressProps {
 
 export const FreeShippingProgress = ({ 
   currentTotal, 
-  threshold = 1000 
+  threshold = 500 
 }: FreeShippingProgressProps) => {
   const remaining = Math.max(0, threshold - currentTotal);
   const progress = Math.min(100, (currentTotal / threshold) * 100);

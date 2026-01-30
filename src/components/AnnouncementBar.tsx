@@ -3,10 +3,10 @@ import { useEffect, useRef } from "react";
 const messages = [
   "⚡ LIMITED TIME OFFER",
   "🔥 FLASH SALE: 30% OFF",
-  "🚚 FREE SHIPPING OVER R1000",
+  "🚚 FREE SHIPPING OVER R500",
   "⚡ LIMITED TIME OFFER",
   "🔥 FLASH SALE: 30% OFF",
-  "🚚 FREE SHIPPING OVER R1000",
+  "🚚 FREE SHIPPING OVER R500",
 ];
 
 export const AnnouncementBar = () => {
