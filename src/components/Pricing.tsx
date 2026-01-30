@@ -137,7 +137,7 @@ const Pricing = () => {
                     </span>
                     {isBuildYourOwn && (
                       <p className="text-muted-foreground font-body text-xs sm:text-sm mt-1 sm:mt-2">
-                        Starting price
+                        3 piece bundle
                       </p>
                     )}
                     {isBundle && !isBuildYourOwn && (
