@@ -33,20 +33,20 @@ const Pricing = () => {
   // No products - show setup message
   if (!isLoading && (!products || products.length === 0)) {
     return (
-      <section id="pricing" className="py-16 sm:py-24 gradient-dark">
+      <section id="pricing" className="py-16 sm:py-24 bg-card">
         <div className="container">
           <div className="text-center mb-12">
-            <span className="text-gold font-body text-sm font-semibold tracking-widest uppercase">
+            <span className="text-accent font-body text-sm font-semibold tracking-widest uppercase">
               Pick Your Poison
             </span>
-            <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl mt-2">
+            <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl mt-2 text-foreground">
               Simple Pricing
             </h2>
           </div>
 
-          <div className="max-w-xl mx-auto text-center bg-card border border-border rounded-xl p-8">
-            <AlertCircle className="w-12 h-12 text-gold mx-auto mb-4" />
-            <h3 className="font-display text-2xl mb-3">No Products Yet</h3>
+          <div className="max-w-xl mx-auto text-center bg-secondary border border-border rounded-xl p-8">
+            <AlertCircle className="w-12 h-12 text-accent mx-auto mb-4" />
+            <h3 className="font-display text-2xl mb-3 text-foreground">No Products Yet</h3>
             <p className="text-muted-foreground font-body mb-6">
               Your store is connected but there's nothing to sell yet. 
               Time to stock those shelves!
@@ -61,13 +61,13 @@ const Pricing = () => {
   }
 
   return (
-    <section id="pricing" className="py-16 sm:py-24 gradient-dark">
+    <section id="pricing" className="py-16 sm:py-24 bg-card">
       <div className="container">
         <div className="text-center mb-12">
-          <span className="text-gold font-body text-sm font-semibold tracking-widest uppercase">
+          <span className="text-accent font-body text-sm font-semibold tracking-widest uppercase">
             Pick Your Poison
           </span>
-          <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl mt-2">
+          <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl mt-2 text-foreground">
             Simple Pricing
           </h2>
         </div>
@@ -79,31 +79,40 @@ const Pricing = () => {
             </div>
           </div>
         ) : (
-          <div className="grid md:grid-cols-2 gap-6 lg:gap-8 max-w-4xl mx-auto">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 max-w-5xl mx-auto">
             {products?.map((product) => {
               const variant = product.node.variants.edges[0]?.node;
               const price = variant?.price;
               const isBundle = product.node.title.toLowerCase().includes('pack') || 
                               product.node.title.toLowerCase().includes('bundle') ||
                               product.node.title.toLowerCase().includes('scramble');
+              const isBuildYourOwn = product.node.title.toLowerCase().includes('build your own');
               
               return (
                 <div 
                   key={product.node.id}
-                  className={`rounded-xl bg-card p-6 sm:p-8 shadow-card relative ${
-                    isBundle ? 'border-2 border-gold shadow-elevated' : 'border border-border'
+                  className={`rounded-xl bg-background p-6 sm:p-8 shadow-card relative ${
+                    isBundle || isBuildYourOwn ? 'border-2 border-accent shadow-elevated' : 'border border-border'
                   }`}
                 >
-                  {isBundle && (
+                  {isBundle && !isBuildYourOwn && (
                     <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                      <span className="gradient-gold text-accent-foreground text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wide">
+                      <span className="gradient-gold text-foreground text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wide">
                         Save R500
                       </span>
                     </div>
                   )}
 
-                  <div className={`text-center mb-6 ${isBundle ? 'pt-2' : ''}`}>
-                    <h3 className="font-display text-2xl sm:text-3xl mb-2">{product.node.title}</h3>
+                  {isBuildYourOwn && (
+                    <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+                      <span className="bg-walnut text-primary-foreground text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wide">
+                        Customise
+                      </span>
+                    </div>
+                  )}
+
+                  <div className={`text-center mb-6 ${isBundle || isBuildYourOwn ? 'pt-2' : ''}`}>
+                    <h3 className="font-display text-2xl sm:text-3xl mb-2 text-foreground">{product.node.title}</h3>
                     {product.node.description && (
                       <p className="text-muted-foreground font-body text-sm line-clamp-2">
                         {product.node.description}
@@ -122,10 +131,15 @@ const Pricing = () => {
                   )}
 
                   <div className="text-center mb-6">
-                    <span className={`font-display text-5xl sm:text-6xl ${isBundle ? 'text-gold' : 'text-foreground'}`}>
+                    <span className={`font-display text-5xl sm:text-6xl ${isBundle || isBuildYourOwn ? 'text-accent' : 'text-foreground'}`}>
                       {price?.currencyCode} {parseFloat(price?.amount || '0').toFixed(0)}
                     </span>
-                    {isBundle && (
+                    {isBuildYourOwn && (
+                      <p className="text-muted-foreground font-body text-sm mt-2">
+                        Starting price • Build your perfect set
+                      </p>
+                    )}
+                    {isBundle && !isBuildYourOwn && (
                       <p className="text-muted-foreground font-body text-sm mt-2">
                         vs R1,200 buying separately
                       </p>
@@ -133,7 +147,7 @@ const Pricing = () => {
                   </div>
 
                   <Button 
-                    variant={isBundle ? "gold" : "dark"} 
+                    variant={isBundle || isBuildYourOwn ? "gold" : "walnutOutline"} 
                     size="lg" 
                     className="w-full"
                     onClick={() => variant && handleAddToCart(product, variant)}

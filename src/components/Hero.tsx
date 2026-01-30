@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import gilmoreSingle from "@/assets/gilmore-single.png";
 
 const Hero = () => {
   const scrollToProduct = () => {
@@ -6,11 +7,11 @@ const Hero = () => {
   };
 
   return (
-    <section className="relative min-h-[90vh] flex items-center gradient-dark overflow-hidden">
+    <section className="relative min-h-[90vh] flex items-center gradient-warm overflow-hidden">
       {/* Subtle pattern overlay */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0" style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%235c4033' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
         }} />
       </div>
 
@@ -18,12 +19,12 @@ const Hero = () => {
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Text Content */}
           <div className="text-center lg:text-left order-2 lg:order-1">
-            <span className="inline-block text-gold font-body text-sm font-semibold tracking-widest uppercase mb-4">
+            <span className="inline-block text-accent font-body text-sm font-semibold tracking-widest uppercase mb-4">
               For Every Golfer Who's Topped One
             </span>
-            <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl xl:text-8xl leading-[0.9] mb-6">
+            <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl xl:text-8xl leading-[0.9] mb-6 text-foreground">
               TOPPED IT
-              <span className="block text-gold text-3xl sm:text-4xl lg:text-5xl mt-2">
+              <span className="block text-walnut text-3xl sm:text-4xl lg:text-5xl mt-2">
                 Headcovers for the Rest of Us
               </span>
             </h1>
@@ -31,7 +32,7 @@ const Hero = () => {
               We can't fix your swing. But we CAN make sure your clubs look better than your handicap.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <Button variant="gold" size="xl" onClick={scrollToProduct}>
+              <Button variant="walnut" size="xl" onClick={scrollToProduct}>
                 Save Your Dignity
               </Button>
               <Button variant="goldOutline" size="xl" onClick={scrollToProduct}>
@@ -39,26 +40,23 @@ const Hero = () => {
               </Button>
             </div>
             <p className="text-muted-foreground text-sm mt-6 font-body">
-              From <span className="text-gold font-semibold">R400</span> • Free shipping over R500
+              From <span className="text-accent font-semibold">R400</span> • Free shipping over R500
             </p>
           </div>
 
-          {/* Hero Image Placeholder */}
+          {/* Hero Image */}
           <div className="order-1 lg:order-2 flex justify-center">
             <div className="relative">
-              <div className="w-72 h-72 sm:w-80 sm:h-80 lg:w-96 lg:h-96 rounded-full bg-gradient-to-br from-forest to-primary flex items-center justify-center shadow-elevated">
-                <div className="w-64 h-64 sm:w-72 sm:h-72 lg:w-80 lg:h-80 rounded-full bg-card border-2 border-border flex items-center justify-center">
-                  <div className="text-center p-8">
-                    <div className="text-6xl mb-4">⛳</div>
-                    <p className="text-muted-foreground text-sm font-body">
-                      Product Image
-                    </p>
-                  </div>
-                </div>
+              <div className="w-72 h-72 sm:w-80 sm:h-80 lg:w-96 lg:h-96 rounded-2xl overflow-hidden shadow-elevated bg-card">
+                <img 
+                  src={gilmoreSingle} 
+                  alt="Gilmore 18 Premium Golf Headcover" 
+                  className="w-full h-full object-cover"
+                />
               </div>
               {/* Decorative elements */}
-              <div className="absolute -top-4 -right-4 w-8 h-8 rounded-full bg-gold animate-pulse" />
-              <div className="absolute -bottom-2 -left-6 w-6 h-6 rounded-full bg-forest-light" />
+              <div className="absolute -top-4 -right-4 w-8 h-8 rounded-full bg-accent animate-pulse" />
+              <div className="absolute -bottom-2 -left-6 w-6 h-6 rounded-full bg-walnut-light" />
             </div>
           </div>
         </div>
