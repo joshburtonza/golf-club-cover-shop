@@ -5,6 +5,29 @@ import { storefrontApiRequest, PRODUCTS_QUERY, ShopifyProduct } from "@/lib/shop
 import { useCartStore } from "@/stores/cartStore";
 import { toast } from "sonner";
 
+// Local product images by style
+import eggplantMonster1 from "@/assets/eggplant-monster-1.png";
+import eggplantMonster2 from "@/assets/eggplant-monster-2.png";
+import eggplantMonster3 from "@/assets/eggplant-monster-3.png";
+import bomb1 from "@/assets/bomb-1.png";
+import bomb2 from "@/assets/bomb-2.png";
+import bomb3 from "@/assets/bomb-3.png";
+import bomb4 from "@/assets/bomb-4.png";
+
+const LOCAL_STYLE_IMAGES: Record<string, { src: string; alt: string }[]> = {
+  "eggplant-monster": [
+    { src: eggplantMonster1, alt: "Eggplant Monster headcover on golf cart" },
+    { src: eggplantMonster2, alt: "Eggplant Monster headcover set" },
+    { src: eggplantMonster3, alt: "Eggplant Monster headcover closeup" },
+  ],
+  "bomb": [
+    { src: bomb1, alt: "BOMB headcover set at doorway" },
+    { src: bomb2, alt: "BOMB headcover collection" },
+    { src: bomb3, alt: "BOMB headcover at car trunk" },
+    { src: bomb4, alt: "BOMB headcover with golf bag" },
+  ],
+};
+
 interface HeadcoverStyle {
   id: string;
   name: string;
@@ -41,6 +64,14 @@ const Catalogue = () => {
             styleName = "Gilmore 18";
           } else if (title.includes("lucky") || title.includes("clover")) {
             styleName = "100% Lucky";
+          } else if (title.includes("eggplant") || title.includes("monster")) {
+            styleName = "Eggplant Monster";
+          } else if (title.includes("bomb")) {
+            styleName = "BOMB";
+          } else if (title.includes("lily") || title.includes("floral")) {
+            styleName = "Lily Floral";
+          } else if (title.includes("hibiscus") || title.includes("hello golf")) {
+            styleName = "Hello Golf Hibiscus";
           } else if (title.includes("bundle") || title.includes("build your own")) {
             return; // Skip bundle products in catalogue
           }
@@ -53,29 +84,46 @@ const Catalogue = () => {
 
         // Convert to HeadcoverStyle array
         const stylesArray: HeadcoverStyle[] = Object.entries(styleGroups).map(([name, prods]) => {
-          const allImages: { id: number; src: string; alt: string }[] = [];
-          let imageId = 1;
+          const styleId = name.toLowerCase().replace(/\s+/g, "-");
           
-          prods.forEach((product) => {
-            product.node.images.edges.forEach((img) => {
-              allImages.push({
-                id: imageId++,
-                src: img.node.url,
-                alt: img.node.altText || product.node.title,
+          // Use local images if available, otherwise use Shopify images
+          const localImages = LOCAL_STYLE_IMAGES[styleId];
+          let allImages: { id: number; src: string; alt: string }[] = [];
+          
+          if (localImages && localImages.length > 0) {
+            allImages = localImages.map((img, index) => ({
+              id: index + 1,
+              src: img.src,
+              alt: img.alt,
+            }));
+          } else {
+            let imageId = 1;
+            prods.forEach((product) => {
+              product.node.images.edges.forEach((img) => {
+                allImages.push({
+                  id: imageId++,
+                  src: img.node.url,
+                  alt: img.node.altText || product.node.title,
+                });
               });
             });
-          });
+          }
+
+          const subtitles: Record<string, string> = {
+            "Gilmore 18": "Black & Gold • Jersey Style",
+            "100% Lucky": "White & Green • Shamrock Style",
+            "Eggplant Monster": "Purple Fuzzy • Character Style",
+            "BOMB": "White & Red • Explosion Style",
+            "Lily Floral": "White • Embroidered Flowers",
+            "Hello Golf Hibiscus": "Pink Quilted • Tropical Style",
+          };
 
           return {
-            id: name.toLowerCase().replace(/\s+/g, "-"),
+            id: styleId,
             name,
-            subtitle: name === "Gilmore 18" 
-              ? "Black & Gold • Jersey Style" 
-              : name === "100% Lucky" 
-                ? "White & Green • Shamrock Style"
-                : "Premium Headcovers",
+            subtitle: subtitles[name] || "Premium Headcovers",
             products: prods,
-            images: allImages.length > 0 ? allImages : [],
+            images: allImages,
           };
         });
 
