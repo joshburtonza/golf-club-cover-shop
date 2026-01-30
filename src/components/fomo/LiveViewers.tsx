@@ -30,18 +30,19 @@ export const LiveViewers = ({ productId }: LiveViewersProps) => {
   }, [productId]);
 
   return (
-    <div className="flex items-center gap-2 text-sm font-body">
-      <Eye className="w-4 h-4 text-orange-500" />
+    <div className="inline-flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-body bg-orange-500/10 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full">
+      <Eye className="w-3 h-3 sm:w-4 sm:h-4 text-orange-500 flex-shrink-0" />
       <span className="text-walnut/80">
         🔥{" "}
         <span
           className={`font-semibold text-orange-600 transition-transform duration-300 inline-block ${
-            isPulsing ? "scale-125" : "scale-100"
+            isPulsing ? "scale-110" : "scale-100"
           }`}
         >
           {viewers}
-        </span>{" "}
-        people are viewing this right now
+        </span>
+        <span className="hidden sm:inline"> people viewing this</span>
+        <span className="sm:hidden"> viewing</span>
       </span>
     </div>
   );
