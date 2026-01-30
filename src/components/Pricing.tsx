@@ -1,9 +1,67 @@
 import { Button } from "@/components/ui/button";
-import { Check } from "lucide-react";
+import { Check, ShoppingCart, AlertCircle } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import { storefrontApiRequest, PRODUCTS_QUERY, ShopifyProduct } from "@/lib/shopify";
+import { useCartStore } from "@/stores/cartStore";
+import { toast } from "sonner";
 
 const Pricing = () => {
+  const { addItem, isLoading: cartLoading } = useCartStore();
+
+  const { data: products, isLoading } = useQuery({
+    queryKey: ['shopify-products'],
+    queryFn: async () => {
+      const data = await storefrontApiRequest(PRODUCTS_QUERY, { first: 10 });
+      return (data?.data?.products?.edges || []) as ShopifyProduct[];
+    },
+  });
+
+  const handleAddToCart = async (product: ShopifyProduct, variant: ShopifyProduct['node']['variants']['edges'][0]['node']) => {
+    await addItem({
+      product,
+      variantId: variant.id,
+      variantTitle: variant.title,
+      price: variant.price,
+      quantity: 1,
+      selectedOptions: variant.selectedOptions || [],
+    });
+    toast.success(`${product.node.title} added to cart!`, {
+      position: "top-center",
+    });
+  };
+
+  // No products - show setup message
+  if (!isLoading && (!products || products.length === 0)) {
+    return (
+      <section id="pricing" className="py-16 sm:py-24 gradient-dark">
+        <div className="container">
+          <div className="text-center mb-12">
+            <span className="text-gold font-body text-sm font-semibold tracking-widest uppercase">
+              Choose Your Pack
+            </span>
+            <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl mt-2">
+              Simple Pricing
+            </h2>
+          </div>
+
+          <div className="max-w-xl mx-auto text-center bg-card border border-border rounded-xl p-8">
+            <AlertCircle className="w-12 h-12 text-gold mx-auto mb-4" />
+            <h3 className="font-display text-2xl mb-3">No Products Yet</h3>
+            <p className="text-muted-foreground font-body mb-6">
+              Your Shopify store is connected but doesn't have any products yet. 
+              Create products by telling me what you want to sell!
+            </p>
+            <p className="text-sm text-muted-foreground font-body">
+              Example: "Create a Single Headcover product for R480 and a 3-Pack Bundle for R780"
+            </p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
-    <section className="py-16 sm:py-24 gradient-dark">
+    <section id="pricing" className="py-16 sm:py-24 gradient-dark">
       <div className="container">
         <div className="text-center mb-12">
           <span className="text-gold font-body text-sm font-semibold tracking-widest uppercase">
@@ -14,100 +72,75 @@ const Pricing = () => {
           </h2>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6 lg:gap-8 max-w-4xl mx-auto">
-          {/* Single Cover */}
-          <div className="rounded-xl bg-card border border-border p-6 sm:p-8 shadow-card">
-            <div className="text-center mb-6">
-              <h3 className="font-display text-2xl sm:text-3xl mb-2">Single Cover</h3>
-              <p className="text-muted-foreground font-body text-sm">
-                Perfect for trying out
-              </p>
-            </div>
-
-            <div className="text-center mb-6">
-              <span className="font-display text-5xl sm:text-6xl text-foreground">R480</span>
-              <span className="text-muted-foreground font-body ml-2">each</span>
-            </div>
-
-            <ul className="space-y-3 mb-8">
-              <li className="flex items-center gap-3 font-body">
-                <Check className="w-5 h-5 text-gold flex-shrink-0" />
-                <span>1 x Driver Headcover</span>
-              </li>
-              <li className="flex items-center gap-3 font-body">
-                <Check className="w-5 h-5 text-gold flex-shrink-0" />
-                <span>Choice of number (1, 3, or 5)</span>
-              </li>
-              <li className="flex items-center gap-3 font-body">
-                <Check className="w-5 h-5 text-gold flex-shrink-0" />
-                <span>Premium packaging</span>
-              </li>
-            </ul>
-
-            {/* Shopify Buy Button Placeholder */}
-            <div id="shopify-buy-button-single" className="bg-muted rounded-lg p-4 text-center border-2 border-dashed border-border">
-              <Button variant="dark" size="lg" className="w-full">
-                Add to Cart — R480
-              </Button>
-              <p className="text-muted-foreground text-xs mt-2 font-body">
-                Shopify Buy Button will appear here
-              </p>
+        {isLoading ? (
+          <div className="flex justify-center">
+            <div className="animate-pulse space-y-4">
+              <div className="h-64 w-80 bg-muted rounded-xl"></div>
             </div>
           </div>
+        ) : (
+          <div className="grid md:grid-cols-2 gap-6 lg:gap-8 max-w-4xl mx-auto">
+            {products?.map((product, index) => {
+              const variant = product.node.variants.edges[0]?.node;
+              const price = variant?.price;
+              const isBundle = product.node.title.toLowerCase().includes('pack') || 
+                              product.node.title.toLowerCase().includes('bundle');
+              
+              return (
+                <div 
+                  key={product.node.id}
+                  className={`rounded-xl bg-card p-6 sm:p-8 shadow-card relative ${
+                    isBundle ? 'border-2 border-gold shadow-elevated' : 'border border-border'
+                  }`}
+                >
+                  {isBundle && (
+                    <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+                      <span className="gradient-gold text-accent-foreground text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wide">
+                        Best Value
+                      </span>
+                    </div>
+                  )}
 
-          {/* 3-Pack - Featured */}
-          <div className="rounded-xl bg-card border-2 border-gold p-6 sm:p-8 shadow-elevated relative">
-            {/* Best Value Badge */}
-            <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-              <span className="gradient-gold text-accent-foreground text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wide">
-                Save R660
-              </span>
-            </div>
+                  <div className={`text-center mb-6 ${isBundle ? 'pt-2' : ''}`}>
+                    <h3 className="font-display text-2xl sm:text-3xl mb-2">{product.node.title}</h3>
+                    {product.node.description && (
+                      <p className="text-muted-foreground font-body text-sm line-clamp-2">
+                        {product.node.description}
+                      </p>
+                    )}
+                  </div>
 
-            <div className="text-center mb-6 pt-2">
-              <h3 className="font-display text-2xl sm:text-3xl mb-2">3-Pack Bundle</h3>
-              <p className="text-muted-foreground font-body text-sm">
-                Complete your set
-              </p>
-            </div>
+                  {product.node.images.edges[0] && (
+                    <div className="mb-6 rounded-lg overflow-hidden bg-muted aspect-square">
+                      <img 
+                        src={product.node.images.edges[0].node.url} 
+                        alt={product.node.images.edges[0].node.altText || product.node.title}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  )}
 
-            <div className="text-center mb-6">
-              <span className="font-display text-5xl sm:text-6xl text-gold">R780</span>
-              <span className="text-muted-foreground font-body ml-2">
-                <s>R1,440</s>
-              </span>
-            </div>
+                  <div className="text-center mb-6">
+                    <span className={`font-display text-5xl sm:text-6xl ${isBundle ? 'text-gold' : 'text-foreground'}`}>
+                      {price?.currencyCode} {parseFloat(price?.amount || '0').toFixed(0)}
+                    </span>
+                  </div>
 
-            <ul className="space-y-3 mb-8">
-              <li className="flex items-center gap-3 font-body">
-                <Check className="w-5 h-5 text-gold flex-shrink-0" />
-                <span>3 x Driver Headcovers</span>
-              </li>
-              <li className="flex items-center gap-3 font-body">
-                <Check className="w-5 h-5 text-gold flex-shrink-0" />
-                <span>Numbers 1, 3 & 5 included</span>
-              </li>
-              <li className="flex items-center gap-3 font-body">
-                <Check className="w-5 h-5 text-gold flex-shrink-0" />
-                <span>Premium gift box packaging</span>
-              </li>
-              <li className="flex items-center gap-3 font-body">
-                <Check className="w-5 h-5 text-gold flex-shrink-0" />
-                <span className="text-gold font-semibold">FREE shipping included</span>
-              </li>
-            </ul>
-
-            {/* Shopify Buy Button Placeholder */}
-            <div id="shopify-buy-button" className="bg-muted rounded-lg p-4 text-center border-2 border-dashed border-gold/30">
-              <Button variant="gold" size="lg" className="w-full">
-                Add to Cart — R780
-              </Button>
-              <p className="text-muted-foreground text-xs mt-2 font-body">
-                Shopify Buy Button will appear here
-              </p>
-            </div>
+                  <Button 
+                    variant={isBundle ? "gold" : "dark"} 
+                    size="lg" 
+                    className="w-full"
+                    onClick={() => variant && handleAddToCart(product, variant)}
+                    disabled={!variant?.availableForSale || cartLoading}
+                  >
+                    <ShoppingCart className="w-4 h-4 mr-2" />
+                    Add to Cart — {price?.currencyCode} {parseFloat(price?.amount || '0').toFixed(0)}
+                  </Button>
+                </div>
+              );
+            })}
           </div>
-        </div>
+        )}
       </div>
     </section>
   );
