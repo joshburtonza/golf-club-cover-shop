@@ -11,14 +11,14 @@ const comparisons = [
 
 const ComparisonTable = () => {
   return (
-    <section className="py-16 sm:py-24 bg-secondary">
+    <section className="py-16 sm:py-24 bg-muted">
       <div className="container">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-12">
-            <span className="text-gold font-body text-sm font-semibold tracking-widest uppercase">
+            <span className="text-accent font-body text-sm font-semibold tracking-widest uppercase">
               The Comparison
             </span>
-            <h2 className="font-display text-4xl sm:text-5xl mt-2">
+            <h2 className="font-display text-4xl sm:text-5xl mt-2 text-foreground">
               Why Choose Us Over Pro Shop Prices?
             </h2>
             <p className="text-muted-foreground font-body mt-4">
@@ -26,11 +26,11 @@ const ComparisonTable = () => {
             </p>
           </div>
 
-          <div className="bg-card border border-border rounded-xl overflow-hidden">
+          <div className="bg-card border border-border rounded-xl overflow-hidden shadow-card">
             {/* Header */}
-            <div className="grid grid-cols-3 gap-4 p-4 bg-muted border-b border-border">
-              <div className="font-display text-lg">Feature</div>
-              <div className="font-display text-lg text-center text-gold">Topped It</div>
+            <div className="grid grid-cols-3 gap-4 p-4 bg-secondary border-b border-border">
+              <div className="font-display text-lg text-foreground">Feature</div>
+              <div className="font-display text-lg text-center text-accent">Topped It</div>
               <div className="font-display text-lg text-center text-muted-foreground">Pro Shops</div>
             </div>
 
@@ -42,11 +42,11 @@ const ComparisonTable = () => {
                   index !== comparisons.length - 1 ? 'border-b border-border' : ''
                 }`}
               >
-                <div className="font-body text-sm sm:text-base">{item.benefit}</div>
+                <div className="font-body text-sm sm:text-base text-foreground">{item.benefit}</div>
                 <div className="flex justify-center">
                   {item.us ? (
-                    <div className="w-6 h-6 rounded-full bg-gold/20 flex items-center justify-center">
-                      <Check className="w-4 h-4 text-gold" />
+                    <div className="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center">
+                      <Check className="w-4 h-4 text-accent" />
                     </div>
                   ) : (
                     <div className="w-6 h-6 rounded-full bg-muted flex items-center justify-center">

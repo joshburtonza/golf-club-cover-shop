@@ -50,14 +50,14 @@ const faqs = [
 
 const FAQ = () => {
   return (
-    <section className="py-16 sm:py-24 gradient-dark">
+    <section className="py-16 sm:py-24 bg-walnut">
       <div className="container">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-12">
-            <span className="text-gold font-body text-sm font-semibold tracking-widest uppercase">
+            <span className="text-accent font-body text-sm font-semibold tracking-widest uppercase">
               Questions From the 19th Hole
             </span>
-            <h2 className="font-display text-4xl sm:text-5xl mt-2">
+            <h2 className="font-display text-4xl sm:text-5xl mt-2 text-primary-foreground">
               Frequently Asked
             </h2>
           </div>
@@ -67,12 +67,12 @@ const FAQ = () => {
               <AccordionItem
                 key={index}
                 value={`item-${index}`}
-                className="bg-card border border-border rounded-lg px-6 data-[state=open]:border-gold/50 transition-colors"
+                className="bg-walnut-light border border-primary-foreground/20 rounded-lg px-6 data-[state=open]:border-accent/50 transition-colors"
               >
-                <AccordionTrigger className="font-display text-lg sm:text-xl hover:text-gold hover:no-underline py-5">
+                <AccordionTrigger className="font-display text-lg sm:text-xl hover:text-accent hover:no-underline py-5 text-primary-foreground">
                   {faq.question}
                 </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground font-body pb-5 leading-relaxed">
+                <AccordionContent className="text-primary-foreground/70 font-body pb-5 leading-relaxed">
                   {faq.answer}
                 </AccordionContent>
               </AccordionItem>
