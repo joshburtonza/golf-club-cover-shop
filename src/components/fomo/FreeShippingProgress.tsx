@@ -20,7 +20,7 @@ export const FreeShippingProgress = ({
         <div className="flex items-center gap-2 text-green-600">
           <PartyPopper className="w-5 h-5 flex-shrink-0" />
           <span className="font-body font-semibold text-sm">
-            🎉 You've unlocked FREE SHIPPING!
+            🎉 FREE SHIPPING unlocked! The only free thing in golf.
           </span>
         </div>
       </div>
@@ -42,7 +42,7 @@ export const FreeShippingProgress = ({
         />
       </Progress>
       <p className="text-xs text-muted-foreground mt-1 font-body">
-        Free shipping on orders over R{threshold}
+        Your bag will thank you. Add another cover.
       </p>
     </div>
   );

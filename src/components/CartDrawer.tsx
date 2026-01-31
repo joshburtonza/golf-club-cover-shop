@@ -48,9 +48,9 @@ export const CartDrawer = () => {
       </SheetTrigger>
       <SheetContent className="w-full sm:max-w-lg flex flex-col h-[100dvh] bg-card border-border p-0">
         <SheetHeader className="flex-shrink-0 p-4 sm:p-6 pb-0">
-          <SheetTitle className="font-display text-xl sm:text-2xl">Shopping Cart</SheetTitle>
+          <SheetTitle className="font-display text-xl sm:text-2xl">Your Bag</SheetTitle>
           <SheetDescription className="font-body text-sm">
-            {totalItems === 0 ? "Your cart is empty" : `${totalItems} item${totalItems !== 1 ? 's' : ''} in your cart`}
+            {totalItems === 0 ? "Emptier than the fairway after you've teed off" : `${totalItems} item${totalItems !== 1 ? 's' : ''} ready to upgrade your bag`}
           </SheetDescription>
         </SheetHeader>
         
@@ -59,9 +59,9 @@ export const CartDrawer = () => {
             <div className="flex-1 flex items-center justify-center p-4">
               <div className="text-center">
                 <ShoppingCart className="h-12 w-12 sm:h-16 sm:w-16 text-muted-foreground mx-auto mb-4" />
-                <p className="text-muted-foreground font-body">Your cart is empty</p>
+                <p className="text-muted-foreground font-body font-medium">Your bag is empty</p>
                 <p className="text-muted-foreground/70 font-body text-sm mt-2">
-                  Browse our collection and add your favorites
+                  Emptier than the fairway after you've teed off. Let's fix that.
                 </p>
               </div>
             </div>

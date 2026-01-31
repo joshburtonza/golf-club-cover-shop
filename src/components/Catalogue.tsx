@@ -212,13 +212,13 @@ const Catalogue = () => {
       <div className="container px-4 sm:px-6">
         <div className="text-center mb-8 sm:mb-12">
           <span className="text-accent font-body text-xs sm:text-sm font-semibold tracking-widest uppercase">
-            The Collection
+            Pick Your Poison
           </span>
           <h2 className="font-display text-3xl sm:text-5xl lg:text-6xl mt-2 text-walnut">
-            Shop All Styles
+            The Collection
           </h2>
           <p className="text-walnut/70 mt-3 sm:mt-4 max-w-2xl mx-auto font-body text-sm sm:text-base">
-            Browse our complete collection of premium golf headcovers.
+            Premium headcovers for golfers who take their equipment seriously but themselves not so much.
           </p>
         </div>
 
@@ -227,7 +227,7 @@ const Catalogue = () => {
           <div className="flex items-center justify-between mb-4 sm:mb-6">
             <div>
               <h3 className="font-display text-xl sm:text-3xl text-walnut">Premium Headcovers</h3>
-              <p className="text-walnut/60 font-body text-xs sm:text-sm">Tap to view gallery</p>
+              <p className="text-walnut/60 font-body text-xs sm:text-sm">Tap to see more • Your bag will thank you</p>
             </div>
             {/* Navigation - hidden on mobile, use swipe instead */}
             <div className="hidden sm:flex gap-2">

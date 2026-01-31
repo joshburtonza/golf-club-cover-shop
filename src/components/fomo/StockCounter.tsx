@@ -33,7 +33,7 @@ export const StockCounter = ({ productId, availableForSale, threshold = 14 }: St
     <div className="flex items-center gap-1.5 sm:gap-2 bg-orange-100 text-orange-700 px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg font-body text-xs sm:text-sm">
       <AlertTriangle className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0" />
       <span className="font-semibold">
-        Only <span className="font-bold">{stock}</span> left<span className="hidden sm:inline"> in stock</span>!
+        ⚡ Only <span className="font-bold">{stock}</span> left — don't let your mate beat you to it!
       </span>
     </div>
   );
