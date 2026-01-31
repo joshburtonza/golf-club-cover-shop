@@ -12,17 +12,27 @@ const BrandStory = () => {
           
           <div className="space-y-6 text-muted-foreground font-body text-lg leading-relaxed">
             <p>
-              Because every golfer has been there. That sickening <span className="text-accent font-medium">thwack</span> as 
-              you catch the top of the ball and it dribbles 30 metres while your mates try not to laugh.
+              Every golfer knows the feeling. You've set up perfectly. Waggle complete. Backswing smooth.
+              And then... <span className="text-accent font-medium italic">thwack</span>.
             </p>
             
             <p>
-              We named our brand after our worst shots so you don't have to hide from yours. 
-              Premium headcovers for golfers who take their equipment seriously, but themselves not so much.
+              The ball dribbles forward. Your mates go silent (for half a second). Then the roasting begins.
+            </p>
+
+            <p className="text-foreground/80 italic">
+              "Great shot! You could've walked that far."<br />
+              "Did you mean to keep it under the ladies' tee?"<br />
+              "Mate, the ball's supposed to go UP."
+            </p>
+
+            <p>
+              We've all topped one. Or a hundred. That's why we built <span className="text-accent font-semibold">Topped It</span> — 
+              headcovers for golfers who take their equipment seriously but themselves not so much.
             </p>
 
             <p className="text-foreground font-medium">
-              At least your bag will look good.
+              Because even if your swing is questionable, your bag doesn't have to be.
             </p>
           </div>
 
@@ -33,7 +43,7 @@ const BrandStory = () => {
             </div>
             <div className="flex items-center gap-2">
               <span className="text-accent">📦</span>
-              <span className="text-muted-foreground">6-9 Day Delivery</span>
+              <span className="text-muted-foreground">3-5 Day Delivery</span>
             </div>
             <div className="flex items-center gap-2">
               <span className="text-accent">🔄</span>

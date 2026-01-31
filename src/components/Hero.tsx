@@ -20,7 +20,7 @@ const Hero = () => {
           {/* Text Content */}
           <div className="text-center lg:text-left order-2 lg:order-1">
             <span className="inline-block text-accent font-body text-xs sm:text-sm font-semibold tracking-widest uppercase mb-3 sm:mb-4">
-              For Every Golfer Who's Topped One
+              For Every Golfer Who's Topped One (or a Hundred)
             </span>
             <h1 className="font-display text-4xl sm:text-6xl lg:text-7xl xl:text-8xl leading-[0.9] mb-4 sm:mb-6 text-foreground">
               TOPPED IT
@@ -29,18 +29,18 @@ const Hero = () => {
               </span>
             </h1>
             <p className="text-muted-foreground text-base sm:text-xl max-w-md mx-auto lg:mx-0 mb-6 sm:mb-8 font-body">
-              We can't fix your swing. But we CAN make sure your clubs look better than your handicap.
+              Look, we can't fix your swing. But we CAN make sure your clubs look better than your handicap.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start">
               <Button variant="walnut" size="xl" onClick={scrollToCatalogue} className="w-full sm:w-auto touch-target-lg">
                 Save Your Dignity
               </Button>
               <Button variant="goldOutline" size="xl" onClick={scrollToCatalogue} className="w-full sm:w-auto touch-target-lg">
-                View Collection
+                See the Collection
               </Button>
             </div>
             <p className="text-muted-foreground text-xs sm:text-sm mt-5 sm:mt-6 font-body">
-              From <span className="text-accent font-semibold">R375</span> • Free shipping over R500
+              From <span className="text-accent font-semibold">R375</span> • Free shipping over R500 (the only free thing in golf)
             </p>
           </div>
 

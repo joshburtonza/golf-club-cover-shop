@@ -41,8 +41,8 @@ export const LiveViewers = ({ productId }: LiveViewersProps) => {
         >
           {viewers}
         </span>
-        <span className="hidden sm:inline"> people viewing this</span>
-        <span className="sm:hidden"> viewing</span>
+        <span className="hidden sm:inline"> golfers eyeing this</span>
+        <span className="sm:hidden"> looking</span>
       </span>
     </div>
   );

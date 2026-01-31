@@ -1,12 +1,12 @@
 import { useEffect, useRef } from "react";
 
 const messages = [
-  "⚡ LIMITED TIME OFFER",
-  "🔥 FLASH SALE: 30% OFF",
-  "🚚 FREE SHIPPING OVER R500",
-  "⚡ LIMITED TIME OFFER",
-  "🔥 FLASH SALE: 30% OFF",
-  "🚚 FREE SHIPPING OVER R500",
+  "⛳ FREE SHIPPING over R500 — The only free thing in golf",
+  "💰 SAVE R500 on the 3-Pack — That's 10 rounds of lost balls right there",
+  "⭐ \"At least your bag will look good\" — Every Topped It customer",
+  "🏌️ Premium headcovers for golfers who've accepted their handicap",
+  "⛳ FREE SHIPPING over R500 — The only free thing in golf",
+  "💰 SAVE R500 on the 3-Pack — That's 10 rounds of lost balls right there",
 ];
 
 export const AnnouncementBar = () => {

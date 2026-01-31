@@ -9,8 +9,11 @@ const Footer = () => {
           <h3 className="font-display text-2xl sm:text-3xl mb-2 text-primary-foreground">
             TOPPED <span className="text-accent">IT</span>
           </h3>
-          <p className="text-primary-foreground/70 font-body text-sm mb-6">
-            Headcovers for the Rest of Us
+          <p className="text-primary-foreground/70 font-body text-sm mb-2">
+            Headcovers for golfers who've topped one (or a hundred).
+          </p>
+          <p className="text-primary-foreground/50 font-body text-xs mb-6 italic">
+            Premium gear, self-deprecating humor.
           </p>
 
           {/* Social Links */}
@@ -52,7 +55,7 @@ const Footer = () => {
 
           {/* Copyright */}
           <p className="text-primary-foreground/60 font-body text-xs">
-            © {new Date().getFullYear()} Topped It. All rights reserved.
+            © {new Date().getFullYear()} Topped It. All rights reserved. Mulligans not included.
           </p>
         </div>
       </div>

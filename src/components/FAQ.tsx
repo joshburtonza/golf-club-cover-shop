@@ -14,7 +14,7 @@ const faqs = [
   {
     question: "What size clubs do these fit?",
     answer:
-      "Drivers up to 460cc (which is most modern drivers), plus fairway woods and hybrids. They're more forgiving than your playing partners when you're looking for your ball in the rough.",
+      "Drivers up to 460cc (which is most modern drivers), plus fairway woods and hybrids. More forgiving than your playing partners when you're looking for your ball in the rough.",
   },
   {
     question: "How long does shipping take?",
@@ -27,7 +27,7 @@ const faqs = [
       "30-day returns, no questions asked. Unlike that 'gimme' you took from 6 feet, we won't make you prove anything. Just contact us and we'll sort it out.",
   },
   {
-    question: "Why 'Topped It'?",
+    question: "Why is it called 'Topped It'?",
     answer:
       "Because every golfer has been there. That sickening thwack as you catch the top of the ball and it dribbles 30 metres. We named our brand after our worst shots so our customers don't have to hide from theirs.",
   },
@@ -37,14 +37,19 @@ const faqs = [
       "Premium synthetic leather with reinforced stitching. Built to survive being thrown into the boot after a bad round. We've all been there.",
   },
   {
-    question: "Can I buy just one?",
+    question: "Can I buy just one cover?",
     answer:
-      "Yes! R375 for a single (The Mulligan). But the 3-pack (The Scramble) at R669 saves you R456. That's at least 10 rounds of lost balls right there.",
+      "Absolutely. R375 for The Mulligan (single). But The Scramble (3-pack) at R700 saves you R500 — that's at least 10 rounds of lost balls right there.",
   },
   {
-    question: "Do you ship to my area?",
+    question: "Do you do gift packaging?",
     answer:
-      "We ship nationwide across South Africa via courier. Free shipping on orders over R500. If you can enter your address at checkout, we can get it to you.",
+      "Not yet, but it ships discreetly. Perfect for gifting to your group's 'most improved' player. (We all know what that means.)",
+  },
+  {
+    question: "What's your returns policy?",
+    answer:
+      "30 days, no drama. Just like that putt you missed — we'll pretend it didn't happen.",
   },
 ];
 

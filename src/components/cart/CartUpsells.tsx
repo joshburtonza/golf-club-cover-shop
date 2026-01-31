@@ -73,7 +73,7 @@ export const CartUpsells = ({ cartItems }: CartUpsellsProps) => {
 
   return (
     <div className="px-4 sm:px-6 pb-4">
-      <h4 className="font-display text-sm text-walnut mb-3">You might also like</h4>
+      <h4 className="font-display text-sm text-walnut mb-3">Complete Your Set?</h4>
       <div className="flex gap-3 overflow-x-auto scrollbar-hide scroll-smooth-touch pb-2 -mx-4 px-4 sm:mx-0 sm:px-0">
         {products.map((product) => {
           const price = product.node.priceRange.minVariantPrice;
