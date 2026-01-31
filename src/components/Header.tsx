@@ -10,7 +10,8 @@ const Header = () => {
       {/* Main Navigation */}
       <div className="bg-background/80 backdrop-blur-md border-b border-border">
         <div className="container flex items-center justify-between h-14 sm:h-16 px-4 sm:px-6">
-          <a href="#" className="font-display text-lg sm:text-2xl text-walnut touch-target flex items-center">
+          <a href="#" className="font-display text-lg sm:text-2xl text-walnut touch-target flex items-center gap-2">
+            <img src="/favicon.png" alt="Topped It" className="w-7 h-7 sm:w-8 sm:h-8 rounded" />
             TOPPED <span className="text-accent ml-1">IT</span>
           </a>
           <div className="flex items-center gap-2 sm:gap-4">
