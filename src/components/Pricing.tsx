@@ -4,6 +4,8 @@ import { useQuery } from "@tanstack/react-query";
 import { storefrontApiRequest, PRODUCTS_QUERY, ShopifyProduct } from "@/lib/shopify";
 import { useCartStore } from "@/stores/cartStore";
 import { toast } from "sonner";
+import { SalePrice } from "@/components/fomo/SalePrice";
+import { getOriginalPrice } from "@/lib/pricing";
 
 const Pricing = () => {
   const { addItem, isLoading: cartLoading } = useCartStore();
@@ -136,9 +138,11 @@ const Pricing = () => {
                   )}
 
                   <div className="text-center mb-4 sm:mb-6">
-                    <span className={`font-display text-4xl sm:text-5xl lg:text-6xl ${isBundle || isBuildYourOwn ? 'text-accent' : 'text-foreground'}`}>
-                      R {parseFloat(price?.amount || '0').toFixed(0)}
-                    </span>
+                    <SalePrice 
+                      salePrice={parseFloat(price?.amount || '0')} 
+                      size="xl"
+                      showBadge={true}
+                    />
                     {isBuildYourOwn && (
                       <p className="text-muted-foreground font-body text-xs sm:text-sm mt-1 sm:mt-2">
                         3 piece bundle
@@ -146,7 +150,7 @@ const Pricing = () => {
                     )}
                     {isBundle && !isBuildYourOwn && (
                       <p className="text-muted-foreground font-body text-xs sm:text-sm mt-1 sm:mt-2">
-                        vs R1,200 separately
+                        vs R{Math.round(getOriginalPrice(parseFloat(price?.amount || '0')))} separately
                       </p>
                     )}
                   </div>
@@ -159,7 +163,7 @@ const Pricing = () => {
                     disabled={!variant?.availableForSale || cartLoading}
                   >
                     <ShoppingCart className="w-4 h-4 mr-2" />
-                    Add — R {parseFloat(price?.amount || '0').toFixed(0)}
+                    Add to Cart
                   </Button>
                 </div>
               );

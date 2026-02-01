@@ -12,6 +12,7 @@ import {
   PurchaseNotifications,
   StickyAddToCart,
   ShippingCountdown,
+  SalePrice,
 } from "@/components/fomo";
 import { QuantityBreaks } from "@/components/QuantityBreaks";
 
@@ -301,9 +302,11 @@ const Catalogue = () => {
                       {product.node.description}
                     </p>
                     <div className="flex items-center justify-between mt-3 sm:mt-4">
-                      <p className="font-display text-xl sm:text-2xl text-accent">
-                        R {parseFloat(price.amount).toFixed(0)}
-                      </p>
+                      <SalePrice 
+                        salePrice={parseFloat(price.amount)} 
+                        size="sm"
+                        showBadge={false}
+                      />
                       <Button
                         variant="walnut"
                         size="sm"
@@ -490,9 +493,10 @@ const Catalogue = () => {
                 <div ref={addToCartButtonRef} className="pt-3 sm:pt-4 border-t border-border mt-auto">
                   <div className="flex items-center justify-between mb-3">
                     <div>
-                      <p className="font-display text-2xl sm:text-3xl text-accent">
-                        R {Math.round(selectedPriceEach * selectedQuantity)}
-                      </p>
+                      <SalePrice 
+                        salePrice={selectedPriceEach * selectedQuantity} 
+                        size="lg"
+                      />
                       <p className="text-xs text-muted-foreground font-body">
                         {selectedQuantity > 1 ? `R${Math.round(selectedPriceEach)} each` : ''}
                       </p>

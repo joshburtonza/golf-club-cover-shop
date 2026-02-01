@@ -1,9 +1,13 @@
 import { CartDrawer } from "./CartDrawer";
 import { AnnouncementBar } from "./AnnouncementBar";
+import { SaleTicker } from "./fomo/SaleTicker";
 
 const Header = () => {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 safe-top">
+      {/* Sale Countdown Ticker */}
+      <SaleTicker />
+      
       {/* Scrolling Announcement Bar */}
       <AnnouncementBar />
       
