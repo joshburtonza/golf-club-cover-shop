@@ -1,0 +1,47 @@
+{
+  "type": "header",
+  "name": "Header Group",
+  "sections": {
+    "sale-ticker": {
+      "type": "sale-ticker",
+      "settings": {
+        "cycle_days": 3
+      }
+    },
+    "announcement-bar": {
+      "type": "announcement-bar",
+      "blocks": {
+        "msg1": {
+          "type": "message",
+          "settings": {
+            "text": "⛳ FREE SHIPPING over R500 — The only free thing in golf"
+          }
+        },
+        "msg2": {
+          "type": "message",
+          "settings": {
+            "text": "💰 SAVE R500 on the 3-Pack — That's 10 rounds of lost balls right there"
+          }
+        },
+        "msg3": {
+          "type": "message",
+          "settings": {
+            "text": "⭐ \"At least your bag will look good\" — Every Topped It customer"
+          }
+        },
+        "msg4": {
+          "type": "message",
+          "settings": {
+            "text": "🏌️ Premium headcovers for golfers who've accepted their handicap"
+          }
+        }
+      },
+      "block_order": ["msg1", "msg2", "msg3", "msg4"]
+    },
+    "header": {
+      "type": "header",
+      "settings": {}
+    }
+  },
+  "order": ["sale-ticker", "announcement-bar", "header"]
+}

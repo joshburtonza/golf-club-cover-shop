@@ -1,0 +1,50 @@
+{%- comment -%}
+  Sale Price snippet
+  Usage: {% render 'sale-price', product: product, size: 'md' %}
+  Sizes: sm, md, lg, xl
+{%- endcomment -%}
+
+{%- assign size = size | default: 'md' -%}
+{%- assign show_badge = show_badge | default: true -%}
+{%- assign sale_discount = settings.sale_discount_percent | default: 45 | divided_by: 100.0 -%}
+
+{%- if product -%}
+  {%- assign sale_price = product.price -%}
+  {%- assign original_price_cents = sale_price | divided_by: 1.0 | divided_by: 1 -%}
+  {%- comment -%}
+    The prices in Shopify already reflect the sale price you set.
+    We show compare_at_price as the original if set, otherwise calculate it.
+  {%- endcomment -%}
+
+  <div class="sale-price sale-price--{{ size }}">
+    <div class="sale-price__row">
+      <span class="sale-price__current">{{ sale_price | money }}</span>
+      {%- if product.compare_at_price > product.price -%}
+        <span class="sale-price__original">{{ product.compare_at_price | money }}</span>
+        {%- if show_badge and settings.sale_enabled -%}
+          {%- assign discount_amount = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price -%}
+          <span class="sale-price__badge">-{{ discount_amount }}%</span>
+        {%- endif -%}
+      {%- elsif settings.sale_enabled -%}
+        {%- comment -%}Calculate original from sale discount{%- endcomment -%}
+        {%- assign original_multiplier = 1.0 | divided_by: 1.0 -%}
+        {%- assign discount_decimal = settings.sale_discount_percent | times: 1.0 | divided_by: 100.0 -%}
+        {%- assign keep_decimal = 1.0 | minus: discount_decimal -%}
+        {%- if keep_decimal > 0 -%}
+          {%- assign original_cents = sale_price | times: 1.0 | divided_by: keep_decimal -%}
+          <span class="sale-price__original">{{ original_cents | round | money }}</span>
+          {%- if show_badge -%}
+            <span class="sale-price__badge">-{{ settings.sale_discount_percent }}%</span>
+          {%- endif -%}
+        {%- endif -%}
+      {%- endif -%}
+    </div>
+  </div>
+{%- elsif price -%}
+  {%- comment -%}Manual price passed directly{%- endcomment -%}
+  <div class="sale-price sale-price--{{ size }}">
+    <div class="sale-price__row">
+      <span class="sale-price__current">{{ price | money }}</span>
+    </div>
+  </div>
+{%- endif -%}

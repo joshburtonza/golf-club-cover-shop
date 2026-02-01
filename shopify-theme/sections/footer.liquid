@@ -1,0 +1,60 @@
+<footer class="site-footer" data-section-id="{{ section.id }}">
+  <div class="container">
+    <div class="site-footer__inner">
+      <h3 class="site-footer__logo">
+        TOPPED <span class="site-footer__logo-accent">IT</span>
+      </h3>
+      <p class="site-footer__tagline">Headcovers for golfers who've topped one (or a hundred).</p>
+      <p class="site-footer__sub">Premium gear, self-deprecating humor.</p>
+
+      <div class="site-footer__socials">
+        {%- if settings.social_instagram != blank -%}
+          <a href="{{ settings.social_instagram }}" target="_blank" rel="noopener noreferrer" class="site-footer__social-link" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+        {%- endif -%}
+        {%- if settings.social_facebook != blank -%}
+          <a href="{{ settings.social_facebook }}" target="_blank" rel="noopener noreferrer" class="site-footer__social-link" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+          </a>
+        {%- endif -%}
+        {%- if settings.social_email != blank -%}
+          <a href="mailto:{{ settings.social_email }}" class="site-footer__social-link" aria-label="Email">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </a>
+        {%- endif -%}
+      </div>
+
+      {%- if settings.social_email != blank -%}
+        <a href="mailto:{{ settings.social_email }}" class="site-footer__email">{{ settings.social_email }}</a>
+      {%- endif -%}
+
+      <p class="site-footer__copyright">
+        &copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. All rights reserved. Mulligans not included.
+      </p>
+
+      <div class="site-footer__links">
+        {%- for link in section.settings.menu.links -%}
+          <a href="{{ link.url }}" class="site-footer__link">{{ link.title }}</a>
+        {%- endfor -%}
+        <a href="{{ policies.privacy_policy.url }}" class="site-footer__link">Privacy Policy</a>
+        <a href="{{ policies.refund_policy.url }}" class="site-footer__link">Refund Policy</a>
+        <a href="{{ policies.terms_of_service.url }}" class="site-footer__link">Terms of Service</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Footer menu",
+      "default": "footer"
+    }
+  ]
+}
+{% endschema %}

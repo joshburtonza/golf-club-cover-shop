@@ -1,0 +1,16 @@
+<section style="padding-top:var(--header-height);padding-bottom:4rem;">
+  <div class="container">
+    <h1 style="font-family:var(--font-display);font-size:2.5rem;padding:2rem 0;color:var(--color-foreground);">{{ page.title }}</h1>
+    <div class="rte" style="font-family:var(--font-body);line-height:1.7;color:var(--color-muted-foreground);">
+      {{ page.content }}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Page Content",
+  "settings": [],
+  "templates": ["page"]
+}
+{% endschema %}

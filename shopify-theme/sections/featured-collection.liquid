@@ -1,0 +1,140 @@
+{%- assign collection = section.settings.collection -%}
+
+<section class="catalogue" id="catalogue" data-section-id="{{ section.id }}">
+  <div class="container">
+    <div class="text-center" style="margin-bottom:2rem;">
+      <span class="section__label">{{ section.settings.subtitle }}</span>
+      <h2 class="section__heading">{{ section.settings.heading }}</h2>
+      <p class="section__subtext">{{ section.settings.description }}</p>
+    </div>
+
+    <div class="catalogue__wrap">
+      <div class="catalogue__top">
+        <div>
+          <h3 class="catalogue__heading">{{ section.settings.card_heading | default: 'Premium Headcovers' }}</h3>
+          <p class="catalogue__sub">Tap to see more &bull; Your bag will thank you</p>
+        </div>
+        <div class="catalogue__nav">
+          <button class="catalogue__nav-btn" onclick="scrollCatalogue(-1)" aria-label="Scroll left">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <button class="catalogue__nav-btn" onclick="scrollCatalogue(1)" aria-label="Scroll right">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="catalogue__scroll scrollbar-hide" id="catalogue-scroll">
+        {%- if collection != blank -%}
+          {%- for product in collection.products limit: section.settings.products_to_show -%}
+            <a href="{{ product.url }}" class="product-card" data-product-id="{{ product.id }}">
+              <div class="product-card__image">
+                {%- if product.featured_image -%}
+                  <img
+                    src="{{ product.featured_image | image_url: width: 600 }}"
+                    alt="{{ product.featured_image.alt | default: product.title }}"
+                    loading="lazy"
+                    width="600"
+                    height="600"
+                  >
+                {%- else -%}
+                  {{ 'product-1' | placeholder_svg_tag }}
+                {%- endif -%}
+                {%- unless product.available -%}
+                  <div class="product-card__sold-out">
+                    <span>Sold Out</span>
+                  </div>
+                {%- endunless -%}
+                {%- if product.images.size > 1 -%}
+                  <span class="product-card__photo-count">+{{ product.images.size | minus: 1 }} photos</span>
+                {%- endif -%}
+              </div>
+              <div class="product-card__info">
+                <h4 class="product-card__title line-clamp-1">{{ product.title }}</h4>
+                <p class="product-card__desc line-clamp-2">{{ product.description | strip_html | truncate: 80 }}</p>
+                <div class="product-card__footer">
+                  {% render 'sale-price', product: product, size: 'sm' %}
+                  <span class="btn btn-walnut btn-sm">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 002 1.58h9.78a2 2 0 001.95-1.57l1.65-7.43H5.12"/></svg>
+                    Add
+                  </span>
+                </div>
+              </div>
+            </a>
+          {%- endfor -%}
+        {%- else -%}
+          {%- for i in (1..6) -%}
+            <div class="product-card">
+              <div class="product-card__image">
+                {{ 'product-1' | placeholder_svg_tag }}
+              </div>
+              <div class="product-card__info">
+                <h4 class="product-card__title">Sample Product {{ i }}</h4>
+                <p class="product-card__desc">Premium headcover for your clubs</p>
+                <div class="product-card__footer">
+                  <span class="sale-price sale-price--sm">
+                    <span class="sale-price__row">
+                      <span class="sale-price__current">R 375</span>
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          {%- endfor -%}
+        {%- endif -%}
+      </div>
+
+      <div class="catalogue__swipe-hint">&larr; Swipe to browse &rarr;</div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured Collection",
+  "settings": [
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Pick Your Poison"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "The Collection"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Premium headcovers for golfers who take their equipment seriously but themselves not so much."
+    },
+    {
+      "type": "text",
+      "id": "card_heading",
+      "label": "Card heading",
+      "default": "Premium Headcovers"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "label": "Products to show",
+      "min": 2,
+      "max": 20,
+      "default": 12
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Collection"
+    }
+  ]
+}
+{% endschema %}

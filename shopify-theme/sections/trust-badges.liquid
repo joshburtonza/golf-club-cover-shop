@@ -1,0 +1,74 @@
+<section class="trust-badges" data-section-id="{{ section.id }}">
+  <div class="container">
+    <div class="trust-badges__grid">
+      {%- for block in section.blocks -%}
+        <div class="trust-badge" {{ block.shopify_attributes }}>
+          <div class="trust-badge__icon">
+            {%- case block.settings.icon -%}
+              {%- when 'package' -%}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.89 1.45l8 4A2 2 0 0122 7.24v9.53a2 2 0 01-1.11 1.79l-8 4a2 2 0 01-1.79 0l-8-4a2 2 0 01-1.1-1.8V7.24a2 2 0 011.11-1.79l8-4a2 2 0 011.78 0z"/><polyline points="2.32 6.16 12 11 21.68 6.16"/><line x1="12" y1="22.76" x2="12" y2="11"/></svg>
+              {%- when 'truck' -%}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 17h4V5H2v12h3"/><path d="M20 17h2v-3.34a4 4 0 00-1.17-2.83L19 9h-5v8h1"/><circle cx="7.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg>
+              {%- when 'refresh' -%}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 11-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/></svg>
+              {%- when 'shield' -%}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+            {%- endcase -%}
+          </div>
+          <h3 class="trust-badge__title">{{ block.settings.title }}</h3>
+          <p class="trust-badge__desc">{{ block.settings.description }}</p>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Trust Badges",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "badge",
+      "name": "Badge",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "package", "label": "Package" },
+            { "value": "truck", "label": "Truck" },
+            { "value": "refresh", "label": "Returns" },
+            { "value": "shield", "label": "Shield" }
+          ],
+          "default": "package"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Shipped from SA"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "Description",
+          "default": "No customs drama to add to your bogeys"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Trust Badges",
+      "blocks": [
+        { "type": "badge", "settings": { "icon": "package", "title": "Shipped from SA", "description": "No customs drama to add to your bogeys" } },
+        { "type": "badge", "settings": { "icon": "truck", "title": "3-5 Day Delivery", "description": "Faster than finding your ball in the rough" } },
+        { "type": "badge", "settings": { "icon": "refresh", "title": "30-Day Returns", "description": "Easier than fixing your slice" } },
+        { "type": "badge", "settings": { "icon": "shield", "title": "Secure Checkout", "description": "Safer than your course management" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

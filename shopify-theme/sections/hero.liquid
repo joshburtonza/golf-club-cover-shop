@@ -1,0 +1,135 @@
+<section class="hero" data-section-id="{{ section.id }}">
+  <div class="hero__pattern"></div>
+  <div class="container" style="position:relative;z-index:1;">
+    <div class="hero__grid">
+      <div class="hero__content">
+        <span class="hero__subtitle">{{ section.settings.subtitle }}</span>
+        <h1 class="hero__title">
+          {{ section.settings.heading }}
+          <span class="hero__title-sub">{{ section.settings.subheading }}</span>
+        </h1>
+        <p class="hero__description">{{ section.settings.description }}</p>
+        <div class="hero__buttons">
+          {%- if section.settings.button_text != blank -%}
+            <a href="{{ section.settings.button_link }}" class="btn btn-walnut btn-xl">
+              {{ section.settings.button_text }}
+            </a>
+          {%- endif -%}
+          {%- if section.settings.button_2_text != blank -%}
+            <a href="{{ section.settings.button_2_link }}" class="btn btn-gold-outline btn-xl">
+              {{ section.settings.button_2_text }}
+            </a>
+          {%- endif -%}
+        </div>
+        <p class="hero__price-note">
+          From <span class="accent">R{{ section.settings.starting_price }}</span> &bull; Free shipping over R{{ settings.free_shipping_threshold }} (the only free thing in golf)
+        </p>
+      </div>
+      <div class="hero__image-wrap">
+        <div class="hero__image-container">
+          <div class="hero__image-box">
+            {%- if section.settings.image -%}
+              <img
+                src="{{ section.settings.image | image_url: width: 800 }}"
+                alt="{{ section.settings.image.alt | default: 'Premium Golf Headcover' }}"
+                loading="eager"
+                width="800"
+                height="800"
+              >
+            {%- elsif section.settings.featured_product != blank -%}
+              {%- assign hero_product = all_products[section.settings.featured_product] -%}
+              {%- if hero_product.featured_image -%}
+                <img
+                  src="{{ hero_product.featured_image | image_url: width: 800 }}"
+                  alt="{{ hero_product.title }}"
+                  loading="eager"
+                  width="800"
+                  height="800"
+                >
+              {%- endif -%}
+            {%- else -%}
+              {{ 'product-1' | placeholder_svg_tag }}
+            {%- endif -%}
+          </div>
+          <div class="hero__dot-accent"></div>
+          <div class="hero__dot-walnut"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero Banner",
+  "settings": [
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "For Every Golfer Who's Topped One (or a Hundred)"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "TOPPED IT"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Headcovers for the Rest of Us"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Look, we can't fix your swing. But we CAN make sure your clubs look better than your handicap."
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button 1 text",
+      "default": "Save Your Dignity"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button 1 link"
+    },
+    {
+      "type": "text",
+      "id": "button_2_text",
+      "label": "Button 2 text",
+      "default": "See the Collection"
+    },
+    {
+      "type": "url",
+      "id": "button_2_link",
+      "label": "Button 2 link"
+    },
+    {
+      "type": "text",
+      "id": "starting_price",
+      "label": "Starting price (display)",
+      "default": "375"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Hero image"
+    },
+    {
+      "type": "product",
+      "id": "featured_product",
+      "label": "Or use product image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Banner"
+    }
+  ]
+}
+{% endschema %}

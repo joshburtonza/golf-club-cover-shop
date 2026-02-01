@@ -1,0 +1,139 @@
+<section class="comparison section--lg" data-section-id="{{ section.id }}">
+  <div class="container">
+    <div class="text-center" style="margin-bottom:3rem;max-width:48rem;margin-left:auto;margin-right:auto;">
+      <span class="section__label">{{ section.settings.subtitle }}</span>
+      <h2 class="section__heading">{{ section.settings.heading }}</h2>
+      <p class="section__subtext">{{ section.settings.description }}</p>
+    </div>
+
+    <div class="comparison__table">
+      <div class="comparison__header">
+        <div class="comparison__header-cell">Feature</div>
+        <div class="comparison__header-cell comparison__header-cell--accent">{{ section.settings.brand_name | default: 'Topped It' }}</div>
+        <div class="comparison__header-cell comparison__header-cell--muted">{{ section.settings.competitor_name | default: 'Pro Shops' }}</div>
+      </div>
+
+      {%- for block in section.blocks -%}
+        <div class="comparison__row" {{ block.shopify_attributes }}>
+          <div class="comparison__benefit">{{ block.settings.benefit }}</div>
+          <div class="comparison__check">
+            {%- if block.settings.us_value == 'yes' -%}
+              <div class="comparison__check-icon comparison__check-icon--yes">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+            {%- else -%}
+              <div class="comparison__check-icon comparison__check-icon--no">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              </div>
+            {%- endif -%}
+          </div>
+          <div class="comparison__check">
+            {%- if block.settings.them_value == 'yes' -%}
+              <div class="comparison__check-icon comparison__check-icon--no">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+            {%- elsif block.settings.them_value == 'no' -%}
+              <div class="comparison__check-icon comparison__check-icon--no">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              </div>
+            {%- else -%}
+              <span class="comparison__text-muted">{{ block.settings.them_text }}</span>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Comparison Table",
+  "settings": [
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "The Comparison"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Why Choose Us Over the Pro Shop?"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Topped It brings SA golfers premium headcovers without the markup that makes you wince more than your slice."
+    },
+    {
+      "type": "text",
+      "id": "brand_name",
+      "label": "Your brand column name",
+      "default": "Topped It"
+    },
+    {
+      "type": "text",
+      "id": "competitor_name",
+      "label": "Competitor column name",
+      "default": "Pro Shops"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "row",
+      "name": "Comparison Row",
+      "settings": [
+        {
+          "type": "text",
+          "id": "benefit",
+          "label": "Feature / Benefit",
+          "default": "Premium synthetic leather"
+        },
+        {
+          "type": "select",
+          "id": "us_value",
+          "label": "Your brand",
+          "options": [
+            { "value": "yes", "label": "Yes (checkmark)" },
+            { "value": "no", "label": "No (X)" }
+          ],
+          "default": "yes"
+        },
+        {
+          "type": "select",
+          "id": "them_value",
+          "label": "Competitor",
+          "options": [
+            { "value": "yes", "label": "Yes (checkmark)" },
+            { "value": "no", "label": "No (X)" },
+            { "value": "text", "label": "Custom text" }
+          ],
+          "default": "no"
+        },
+        {
+          "type": "text",
+          "id": "them_text",
+          "label": "Competitor custom text",
+          "default": ""
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Comparison Table",
+      "blocks": [
+        { "type": "row", "settings": { "benefit": "Premium synthetic leather", "us_value": "yes", "them_value": "yes" } },
+        { "type": "row", "settings": { "benefit": "Magnetic closure", "us_value": "yes", "them_value": "text", "them_text": "Sometimes" } },
+        { "type": "row", "settings": { "benefit": "Under R500 for a single", "us_value": "yes", "them_value": "text", "them_text": "LOL no" } },
+        { "type": "row", "settings": { "benefit": "Ships in 3-5 days", "us_value": "yes", "them_value": "text", "them_text": "In-store only" } },
+        { "type": "row", "settings": { "benefit": "30-day returns, no questions", "us_value": "yes", "them_value": "text", "them_text": "Usually 7 days" } },
+        { "type": "row", "settings": { "benefit": "Sense of humor included", "us_value": "yes", "them_value": "text", "them_text": "Definitely not" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

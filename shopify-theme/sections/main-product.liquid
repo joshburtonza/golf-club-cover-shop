@@ -1,0 +1,118 @@
+{%- assign product = section.settings.product | default: product -%}
+
+<section class="product-page">
+  <div class="container">
+    <div class="product-page__grid">
+      <!-- Product Gallery -->
+      <div class="product-page__gallery">
+        <div class="product-page__main-image" id="product-main-image">
+          {%- if product.featured_image -%}
+            <img
+              src="{{ product.featured_image | image_url: width: 1000 }}"
+              alt="{{ product.featured_image.alt | default: product.title }}"
+              id="product-main-img"
+              loading="eager"
+            >
+          {%- else -%}
+            {{ 'product-1' | placeholder_svg_tag }}
+          {%- endif -%}
+        </div>
+
+        {%- if product.images.size > 1 -%}
+          <div class="product-page__thumbs scrollbar-hide">
+            {%- for image in product.images -%}
+              <button
+                class="product-page__thumb{% if forloop.first %} active{% endif %}"
+                onclick="changeProductImage('{{ image | image_url: width: 1000 }}', this)"
+              >
+                <img
+                  src="{{ image | image_url: width: 200 }}"
+                  alt="{{ image.alt | default: product.title }}"
+                  loading="lazy"
+                >
+              </button>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
+
+      <!-- Product Info -->
+      <div class="product-page__info">
+        <div class="live-viewers">
+          <span class="live-viewers__dot"></span>
+          <span id="live-viewers-count">{{ product.id | modulo: 6 | plus: 3 }}</span> golfers eyeing this
+        </div>
+
+        <h1 class="product-page__title">{{ product.title }}</h1>
+
+        <div class="product-page__description">
+          {{ product.description }}
+        </div>
+
+        <!-- Stock Counter -->
+        {%- if product.available -%}
+          <div class="stock-counter">
+            <span class="stock-counter__dot"></span>
+            Only {{ product.id | modulo: 12 | plus: 3 }} left in stock
+          </div>
+        {%- endif -%}
+
+        <!-- Price -->
+        <div style="margin:1rem 0;">
+          {% render 'sale-price', product: product, size: 'lg' %}
+        </div>
+
+        <!-- Add to Cart Form -->
+        <div class="product-page__form">
+          {%- form 'product', product -%}
+            {%- if product.variants.size > 1 -%}
+              <select name="id" class="product-page__variant-select" id="variant-select">
+                {%- for variant in product.variants -%}
+                  <option
+                    value="{{ variant.id }}"
+                    {% unless variant.available %}disabled{% endunless %}
+                    data-price="{{ variant.price | money }}"
+                  >
+                    {{ variant.title }}{% unless variant.available %} - Sold Out{% endunless %} &mdash; {{ variant.price | money }}
+                  </option>
+                {%- endfor -%}
+              </select>
+            {%- else -%}
+              <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+            {%- endif -%}
+
+            <div class="product-page__quantity">
+              <label for="quantity">Quantity:</label>
+              <input type="number" name="quantity" id="quantity" value="1" min="1" max="10">
+            </div>
+
+            <button
+              type="submit"
+              class="btn btn-walnut btn-lg btn-full"
+              {% unless product.available %}disabled{% endunless %}
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 002 1.58h9.78a2 2 0 001.95-1.57l1.65-7.43H5.12"/></svg>
+              {% if product.available %}Add to Cart{% else %}Sold Out{% endif %}
+            </button>
+          {%- endform -%}
+        </div>
+
+        <!-- Trust signals -->
+        <div style="display:flex;flex-wrap:wrap;gap:1rem;margin-top:1.5rem;font-size:0.75rem;color:var(--color-muted-foreground);">
+          <span>🇿🇦 Shipped from SA</span>
+          <span>📦 3-5 Day Delivery</span>
+          <span>🔄 30-Day Returns</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product Page",
+  "settings": [],
+  "blocks": [],
+  "templates": ["product"]
+}
+{% endschema %}
