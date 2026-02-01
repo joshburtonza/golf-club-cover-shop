@@ -157,7 +157,7 @@
         "p3": {
           "type": "paragraph",
           "settings": {
-            "text": "<p>\"Great shot! You could've walked that far.\"<br>\"Did you mean to keep it under the ladies' tee?\"<br>\"Mate, the ball's supposed to go UP.\"</p>",
+            "text": "<p>\"Great shot! You could've walked that far.\"</p><p>\"Did you mean to keep it under the ladies' tee?\"</p><p>\"Mate, the ball's supposed to go UP.\"</p>",
             "style": "italic"
           }
         },
