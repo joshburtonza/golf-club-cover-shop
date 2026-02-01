@@ -1,0 +1,65 @@
+<div class="announcement-bar" data-section-id="{{ section.id }}">
+  <div class="announcement-bar__track">
+    {%- for i in (1..2) -%}
+      {%- for block in section.blocks -%}
+        <span class="announcement-bar__item" {{ block.shopify_attributes }}>
+          {{ block.settings.text }}
+          <span class="announcement-bar__sep">&bull;</span>
+        </span>
+      {%- endfor -%}
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Announcement Bar",
+  "class": "announcement-bar-section",
+  "max_blocks": 8,
+  "blocks": [
+    {
+      "type": "message",
+      "name": "Message",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Message text",
+          "default": "FREE SHIPPING over R500 — The only free thing in golf"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Announcement Bar",
+      "blocks": [
+        {
+          "type": "message",
+          "settings": {
+            "text": "⛳ FREE SHIPPING over R500 — The only free thing in golf"
+          }
+        },
+        {
+          "type": "message",
+          "settings": {
+            "text": "💰 SAVE R500 on the 3-Pack — That's 10 rounds of lost balls right there"
+          }
+        },
+        {
+          "type": "message",
+          "settings": {
+            "text": "⭐ \"At least your bag will look good\" — Every Topped It customer"
+          }
+        },
+        {
+          "type": "message",
+          "settings": {
+            "text": "🏌️ Premium headcovers for golfers who've accepted their handicap"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

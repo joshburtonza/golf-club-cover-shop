@@ -1,0 +1,62 @@
+<section class="search-page">
+  <div class="container">
+    <h1 class="search-page__title">
+      {%- if search.performed -%}
+        Search results for "{{ search.terms }}"
+      {%- else -%}
+        Search
+      {%- endif -%}
+    </h1>
+
+    <form action="{{ routes.search_url }}" method="get" class="search-page__form">
+      <input type="text" name="q" value="{{ search.terms | escape }}" placeholder="Search our store..." class="search-page__input">
+      <button type="submit" class="btn btn-walnut">Search</button>
+    </form>
+
+    {%- if search.performed -%}
+      {%- if search.results_count == 0 -%}
+        <div style="text-align:center;padding:2rem 0;">
+          <p style="color:var(--color-muted-foreground);font-family:var(--font-body);">
+            No results found. Like your ball in the deep rough, it's just not here.
+          </p>
+          <a href="{{ routes.root_url }}" class="btn btn-walnut" style="margin-top:1rem;">Back to Home</a>
+        </div>
+      {%- else -%}
+        <div class="collection-page__grid">
+          {%- for item in search.results -%}
+            {%- if item.object_type == 'product' -%}
+              <a href="{{ item.url }}" class="collection-product-card">
+                <div class="collection-product-card__image">
+                  {%- if item.featured_image -%}
+                    <img src="{{ item.featured_image | image_url: width: 400 }}" alt="{{ item.title }}" loading="lazy">
+                  {%- endif -%}
+                </div>
+                <div class="collection-product-card__info">
+                  <h3 class="collection-product-card__title">{{ item.title }}</h3>
+                  <span class="collection-product-card__price">{{ item.price | money }}</span>
+                </div>
+              </a>
+            {%- else -%}
+              <div style="padding:1rem;border:1px solid var(--color-border);border-radius:var(--radius);">
+                <h3 style="font-family:var(--font-display);font-size:1.125rem;">
+                  <a href="{{ item.url }}">{{ item.title }}</a>
+                </h3>
+                <p style="font-size:0.875rem;color:var(--color-muted-foreground);margin-top:0.5rem;">
+                  {{ item.content | strip_html | truncate: 120 }}
+                </p>
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Search Page",
+  "settings": [],
+  "templates": ["search"]
+}
+{% endschema %}

@@ -1,0 +1,32 @@
+{
+  "general": {
+    "skip_to_content": "Skip to content",
+    "cart": "Cart",
+    "search": "Search",
+    "close": "Close"
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Add to Cart",
+      "sold_out": "Sold Out",
+      "quantity": "Quantity",
+      "description": "Description"
+    }
+  },
+  "cart": {
+    "title": "Your Bag",
+    "empty": "Emptier than the fairway after you've teed off",
+    "total": "Total",
+    "checkout": "Checkout",
+    "continue_shopping": "Continue Shopping",
+    "remove": "Remove"
+  },
+  "collections": {
+    "title": "Collections"
+  },
+  "sections": {
+    "header": {
+      "shop": "Shop"
+    }
+  }
+}

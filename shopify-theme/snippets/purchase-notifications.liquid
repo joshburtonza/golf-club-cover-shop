@@ -1,0 +1,18 @@
+{%- comment -%}
+  Fake purchase notification toast for social proof / FOMO
+  Controlled by settings.show_purchase_notifications
+{%- endcomment -%}
+
+{%- if settings.show_purchase_notifications -%}
+  <div class="purchase-notification" id="purchase-notification">
+    <span class="purchase-notification__icon">🛒</span>
+    <div>
+      <p class="purchase-notification__text">
+        <span class="purchase-notification__name" id="notification-name">Someone</span>
+        from <span id="notification-city">Johannesburg</span> just purchased
+        <strong id="notification-product">a Topped It headcover</strong>
+      </p>
+      <p class="purchase-notification__time" id="notification-time">2 minutes ago</p>
+    </div>
+  </div>
+{%- endif -%}

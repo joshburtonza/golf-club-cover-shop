@@ -1,0 +1,61 @@
+{%- comment -%}
+  Cart Drawer - slide-out cart panel
+  This is rendered via JS using the Cart AJAX API
+{%- endcomment -%}
+
+<div class="cart-drawer-overlay" id="cart-drawer-overlay"></div>
+
+<div class="cart-drawer" id="cart-drawer" aria-label="Shopping cart">
+  <div class="cart-drawer__header" style="position:relative;">
+    <h2 class="cart-drawer__title">Your Bag</h2>
+    <p class="cart-drawer__subtitle" id="cart-drawer-subtitle">
+      {%- if cart.item_count == 0 -%}
+        Emptier than the fairway after you've teed off
+      {%- else -%}
+        {{ cart.item_count }} item{{ cart.item_count | pluralize: '', 's' }} ready to upgrade your bag
+      {%- endif -%}
+    </p>
+    <button class="cart-drawer__close" id="cart-drawer-close" aria-label="Close cart">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+
+  <div class="cart-drawer__body" id="cart-drawer-body">
+    <!-- Cart items rendered via JS -->
+    <div class="cart-drawer__empty" id="cart-drawer-empty">
+      <div>
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 002 1.58h9.78a2 2 0 001.95-1.57l1.65-7.43H5.12"/></svg>
+        <p style="font-weight:500;">Your bag is empty</p>
+        <p style="font-size:0.875rem;margin-top:0.5rem;opacity:0.7;">
+          Emptier than the fairway after you've teed off. Let's fix that.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="cart-drawer__footer" id="cart-drawer-footer" style="display:none;">
+    <!-- Free shipping bar -->
+    <div class="free-shipping" id="cart-free-shipping">
+      <p class="free-shipping__text" id="cart-shipping-text"></p>
+      <div class="free-shipping__bar">
+        <div class="free-shipping__bar-fill" id="cart-shipping-bar" style="width:0%;"></div>
+      </div>
+    </div>
+
+    <div class="cart-drawer__total">
+      <span class="cart-drawer__total-label">Total</span>
+      <span class="cart-drawer__total-price" id="cart-total-price">R 0</span>
+    </div>
+
+    <a href="/checkout" class="btn btn-gold btn-lg btn-full" id="cart-checkout-btn">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      Checkout
+    </a>
+
+    <div class="payment-icons">
+      <span style="font-size:0.75rem;color:var(--color-muted-foreground);">Secure payments via</span>
+      <svg width="38" height="24" viewBox="0 0 38 24" fill="none" style="opacity:0.5;"><rect width="38" height="24" rx="3" fill="#1A1F71"/><text x="19" y="15" fill="white" font-size="8" text-anchor="middle" font-weight="bold">VISA</text></svg>
+      <svg width="38" height="24" viewBox="0 0 38 24" fill="none" style="opacity:0.5;"><rect width="38" height="24" rx="3" fill="#EB001B"/><circle cx="15" cy="12" r="7" fill="#EB001B"/><circle cx="23" cy="12" r="7" fill="#F79E1B"/><path d="M19 6.6a7 7 0 010 10.8 7 7 0 000-10.8z" fill="#FF5F00"/></svg>
+    </div>
+  </div>
+</div>

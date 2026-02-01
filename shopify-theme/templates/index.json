@@ -1,0 +1,245 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "subtitle": "For Every Golfer Who's Topped One (or a Hundred)",
+        "heading": "TOPPED IT",
+        "subheading": "Headcovers for the Rest of Us",
+        "description": "Look, we can't fix your swing. But we CAN make sure your clubs look better than your handicap.",
+        "button_text": "Save Your Dignity",
+        "button_link": "#catalogue",
+        "button_2_text": "See the Collection",
+        "button_2_link": "#catalogue",
+        "starting_price": "375",
+        "asset_image": "gilmore-single.png"
+      }
+    },
+    "product-gallery": {
+      "type": "product-gallery",
+      "settings": {
+        "subtitle": "The Collection",
+        "heading": "Every Style. Zero Excuses.",
+        "description": "From classic black & gold to cartoon chaos — pick the headcover that matches your personality (or your handicap).",
+        "testimonial_text": "Finally, something in my golf bag that doesn't embarrass me.",
+        "testimonial_author": "Thabo M., Johannesburg"
+      },
+      "blocks": {
+        "gallery-gilmore": {
+          "type": "style_gallery",
+          "settings": {
+            "title": "Gilmore 18",
+            "subtitle": "Black & Gold • Jersey Style",
+            "asset_image_1": "gilmore-single.png",
+            "asset_image_2": "gilmore-set-car.png",
+            "asset_image_3": "gilmore-set-grass.png"
+          }
+        },
+        "gallery-lucky": {
+          "type": "style_gallery",
+          "settings": {
+            "title": "100% Lucky",
+            "subtitle": "White & Green • Shamrock Style",
+            "asset_image_1": "lucky-set-bag.png",
+            "asset_image_2": "lucky-set-door.png",
+            "asset_image_3": "lucky-set-grass.png"
+          }
+        },
+        "gallery-cherry-blossom": {
+          "type": "style_gallery",
+          "settings": {
+            "title": "Cherry Blossom Luck",
+            "subtitle": "Pink Quilted • Hello Golf",
+            "asset_image_1": "hello-golf-1.png",
+            "asset_image_2": "hello-golf-2.png",
+            "asset_image_3": "hello-golf-3.webp"
+          }
+        },
+        "gallery-money-man": {
+          "type": "style_gallery",
+          "settings": {
+            "title": "Money Man",
+            "subtitle": "White & Blue • Big Spender",
+            "asset_image_1": "big-money-1.png",
+            "asset_image_2": "big-money-2.png",
+            "asset_image_3": "big-money-3.png"
+          }
+        },
+        "gallery-bomb": {
+          "type": "style_gallery",
+          "settings": {
+            "title": "Bomb",
+            "subtitle": "White • Cartoon Explosive",
+            "asset_image_1": "bomb-1.png",
+            "asset_image_2": "bomb-2.png",
+            "asset_image_3": "bomb-3.png",
+            "asset_image_4": "bomb-4.png"
+          }
+        },
+        "gallery-eggplant": {
+          "type": "style_gallery",
+          "settings": {
+            "title": "Eggplant Monster",
+            "subtitle": "Purple Plush • Fuzzy Fun",
+            "asset_image_1": "eggplant-monster-1.png",
+            "asset_image_2": "eggplant-monster-2.png",
+            "asset_image_3": "eggplant-monster-3.png"
+          }
+        },
+        "gallery-poker": {
+          "type": "style_gallery",
+          "settings": {
+            "title": "Poker Face",
+            "subtitle": "Bold • Card Shark Style",
+            "asset_image_1": "poker-1.png"
+          }
+        },
+        "feature-1": {
+          "type": "feature",
+          "settings": {
+            "title": "Fits drivers up to 460cc",
+            "description": "Unlike that slice that fit perfectly into the car park"
+          }
+        },
+        "feature-2": {
+          "type": "feature",
+          "settings": {
+            "title": "Premium synthetic leather",
+            "description": "Softer than your playing partners' heckling"
+          }
+        },
+        "feature-3": {
+          "type": "feature",
+          "settings": {
+            "title": "Fleece interior lining",
+            "description": "Protects your club like you protect your ego"
+          }
+        },
+        "feature-4": {
+          "type": "feature",
+          "settings": {
+            "title": "Magnetic closure",
+            "description": "Stays on better than your tempo"
+          }
+        }
+      },
+      "block_order": ["gallery-gilmore", "gallery-lucky", "gallery-cherry-blossom", "gallery-money-man", "gallery-bomb", "gallery-eggplant", "gallery-poker", "feature-1", "feature-2", "feature-3", "feature-4"]
+    },
+    "featured-collection": {
+      "type": "featured-collection",
+      "settings": {
+        "subtitle": "Pick Your Poison",
+        "heading": "The Collection",
+        "description": "Premium headcovers for golfers who take their equipment seriously but themselves not so much.",
+        "card_heading": "Premium Headcovers",
+        "products_to_show": 12
+      }
+    },
+    "brand-story": {
+      "type": "brand-story",
+      "settings": {
+        "subtitle": "The Story",
+        "heading": "Why \"Topped It\"?"
+      },
+      "blocks": {
+        "p1": {
+          "type": "paragraph",
+          "settings": {
+            "text": "<p>Every golfer knows the feeling. You've set up perfectly. Waggle complete. Backswing smooth. And then... <em>thwack</em>.</p>"
+          }
+        },
+        "p2": {
+          "type": "paragraph",
+          "settings": {
+            "text": "<p>The ball dribbles forward. Your mates go silent (for half a second). Then the roasting begins.</p>"
+          }
+        },
+        "p3": {
+          "type": "paragraph",
+          "settings": {
+            "text": "<p>\"Great shot! You could've walked that far.\"<br>\"Did you mean to keep it under the ladies' tee?\"<br>\"Mate, the ball's supposed to go UP.\"</p>",
+            "style": "italic"
+          }
+        },
+        "p4": {
+          "type": "paragraph",
+          "settings": {
+            "text": "<p>We've all topped one. Or a hundred. That's why we built <strong>Topped It</strong> — headcovers for golfers who take their equipment seriously but themselves not so much.</p>"
+          }
+        },
+        "p5": {
+          "type": "paragraph",
+          "settings": {
+            "text": "<p><strong>Because even if your swing is questionable, your bag doesn't have to be.</strong></p>",
+            "style": "highlight"
+          }
+        }
+      },
+      "block_order": ["p1", "p2", "p3", "p4", "p5"]
+    },
+    "pricing": {
+      "type": "pricing",
+      "settings": {
+        "subtitle": "Pick Your Poison",
+        "heading": "Simple Pricing",
+        "products_to_show": 6
+      }
+    },
+    "comparison-table": {
+      "type": "comparison-table",
+      "settings": {
+        "subtitle": "The Comparison",
+        "heading": "Why Choose Us Over the Pro Shop?",
+        "description": "Topped It brings SA golfers premium headcovers without the markup that makes you wince more than your slice."
+      },
+      "blocks": {
+        "r1": { "type": "row", "settings": { "benefit": "Premium synthetic leather", "us_value": "yes", "them_value": "yes" } },
+        "r2": { "type": "row", "settings": { "benefit": "Magnetic closure", "us_value": "yes", "them_value": "text", "them_text": "Sometimes" } },
+        "r3": { "type": "row", "settings": { "benefit": "Under R500 for a single", "us_value": "yes", "them_value": "text", "them_text": "LOL no" } },
+        "r4": { "type": "row", "settings": { "benefit": "Ships in 3-5 days", "us_value": "yes", "them_value": "text", "them_text": "In-store only" } },
+        "r5": { "type": "row", "settings": { "benefit": "30-day returns, no questions", "us_value": "yes", "them_value": "text", "them_text": "Usually 7 days" } },
+        "r6": { "type": "row", "settings": { "benefit": "Sense of humor included", "us_value": "yes", "them_value": "text", "them_text": "Definitely not" } }
+      },
+      "block_order": ["r1", "r2", "r3", "r4", "r5", "r6"]
+    },
+    "trust-badges": {
+      "type": "trust-badges",
+      "blocks": {
+        "b1": { "type": "badge", "settings": { "icon": "package", "title": "Shipped from SA", "description": "No customs drama to add to your bogeys" } },
+        "b2": { "type": "badge", "settings": { "icon": "truck", "title": "3-5 Day Delivery", "description": "Faster than finding your ball in the rough" } },
+        "b3": { "type": "badge", "settings": { "icon": "refresh", "title": "30-Day Returns", "description": "Easier than fixing your slice" } },
+        "b4": { "type": "badge", "settings": { "icon": "shield", "title": "Secure Checkout", "description": "Safer than your course management" } }
+      },
+      "block_order": ["b1", "b2", "b3", "b4"]
+    },
+    "faq": {
+      "type": "faq",
+      "settings": {
+        "subtitle": "Questions From the 19th Hole",
+        "heading": "Frequently Asked"
+      },
+      "blocks": {
+        "q1": { "type": "question", "settings": { "question": "Will these headcovers improve my game?", "answer": "<p>Absolutely not. But you'll look significantly better while three-putting. Think of it as a confidence upgrade for your equipment, if not your swing.</p>" } },
+        "q2": { "type": "question", "settings": { "question": "What size clubs do these fit?", "answer": "<p>Drivers up to 460cc (which is most modern drivers), plus fairway woods and hybrids. More forgiving than your playing partners when you're looking for your ball in the rough.</p>" } },
+        "q3": { "type": "question", "settings": { "question": "How long does shipping take?", "answer": "<p>3-5 business days to major cities, 5-7 to rural areas. Still faster than that group ahead of you looking for balls on every hole.</p>" } },
+        "q4": { "type": "question", "settings": { "question": "What if I don't like them?", "answer": "<p>30-day returns, no questions asked. Unlike that 'gimme' you took from 6 feet, we won't make you prove anything. Just contact us and we'll sort it out.</p>" } },
+        "q5": { "type": "question", "settings": { "question": "Why is it called 'Topped It'?", "answer": "<p>Because every golfer has been there. That sickening thwack as you catch the top of the ball and it dribbles 30 metres. We named our brand after our worst shots so our customers don't have to hide from theirs.</p>" } },
+        "q6": { "type": "question", "settings": { "question": "Are these durable?", "answer": "<p>Premium synthetic leather with reinforced stitching. Built to survive being thrown into the boot after a bad round. We've all been there.</p>" } },
+        "q7": { "type": "question", "settings": { "question": "Can I buy just one cover?", "answer": "<p>Absolutely. R375 for The Mulligan (single). But The Scramble (3-pack) at R700 saves you R500 — that's at least 10 rounds of lost balls right there.</p>" } },
+        "q8": { "type": "question", "settings": { "question": "Do you do gift packaging?", "answer": "<p>Not yet, but it ships discreetly. Perfect for gifting to your group's 'most improved' player. (We all know what that means.)</p>" } },
+        "q9": { "type": "question", "settings": { "question": "What's your returns policy?", "answer": "<p>30 days, no drama. Just like that putt you missed — we'll pretend it didn't happen.</p>" } }
+      },
+      "block_order": ["q1", "q2", "q3", "q4", "q5", "q6", "q7", "q8", "q9"]
+    }
+  },
+  "order": [
+    "hero",
+    "product-gallery",
+    "featured-collection",
+    "brand-story",
+    "pricing",
+    "comparison-table",
+    "trust-badges",
+    "faq"
+  ]
+}

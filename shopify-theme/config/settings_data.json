@@ -1,0 +1,49 @@
+{
+  "current": {
+    "color_background": "#f5f0e8",
+    "color_foreground": "#2e2316",
+    "color_primary": "#5c4033",
+    "color_accent": "#c9a227",
+    "color_card": "#f7f3ed",
+    "color_muted": "#8a7a6a",
+    "color_border": "#e0d8cc",
+    "sale_discount_percent": 45,
+    "sale_enabled": true,
+    "show_sale_ticker": true,
+    "show_purchase_notifications": true,
+    "free_shipping_threshold": 500,
+    "social_instagram": "https://instagram.com/toppedit.za",
+    "social_facebook": "https://facebook.com/toppedit",
+    "social_email": "hello@toppedit.co.za",
+    "sections": {
+      "header-group": {
+        "type": "header-group",
+        "sections": {
+          "sale-ticker": {
+            "type": "sale-ticker",
+            "settings": {}
+          },
+          "announcement-bar": {
+            "type": "announcement-bar",
+            "settings": {}
+          },
+          "header": {
+            "type": "header",
+            "settings": {}
+          }
+        },
+        "order": ["sale-ticker", "announcement-bar", "header"]
+      },
+      "footer-group": {
+        "type": "footer-group",
+        "sections": {
+          "footer": {
+            "type": "footer",
+            "settings": {}
+          }
+        },
+        "order": ["footer"]
+      }
+    }
+  }
+}
