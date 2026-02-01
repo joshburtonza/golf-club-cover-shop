@@ -12,7 +12,7 @@
         "button_2_text": "See the Collection",
         "button_2_link": "#catalogue",
         "starting_price": "375",
-        "asset_image": "gilmore-single.png"
+        "asset_image": "gilmore-single.jpg"
       }
     },
     "product-gallery": {
@@ -30,9 +30,9 @@
           "settings": {
             "title": "Gilmore 18",
             "subtitle": "Black & Gold • Jersey Style",
-            "asset_image_1": "gilmore-single.png",
-            "asset_image_2": "gilmore-set-car.png",
-            "asset_image_3": "gilmore-set-grass.png"
+            "asset_image_1": "gilmore-single.jpg",
+            "asset_image_2": "gilmore-set-car.jpg",
+            "asset_image_3": "gilmore-set-grass.jpg"
           }
         },
         "gallery-lucky": {
@@ -40,9 +40,9 @@
           "settings": {
             "title": "100% Lucky",
             "subtitle": "White & Green • Shamrock Style",
-            "asset_image_1": "lucky-set-bag.png",
-            "asset_image_2": "lucky-set-door.png",
-            "asset_image_3": "lucky-set-grass.png"
+            "asset_image_1": "lucky-set-bag.jpg",
+            "asset_image_2": "lucky-set-door.jpg",
+            "asset_image_3": "lucky-set-grass.jpg"
           }
         },
         "gallery-cherry-blossom": {
@@ -50,8 +50,8 @@
           "settings": {
             "title": "Cherry Blossom Luck",
             "subtitle": "Pink Quilted • Hello Golf",
-            "asset_image_1": "hello-golf-1.png",
-            "asset_image_2": "hello-golf-2.png",
+            "asset_image_1": "hello-golf-1.jpg",
+            "asset_image_2": "hello-golf-2.jpg",
             "asset_image_3": "hello-golf-3.webp"
           }
         },
@@ -60,9 +60,9 @@
           "settings": {
             "title": "Money Man",
             "subtitle": "White & Blue • Big Spender",
-            "asset_image_1": "big-money-1.png",
-            "asset_image_2": "big-money-2.png",
-            "asset_image_3": "big-money-3.png"
+            "asset_image_1": "big-money-1.jpg",
+            "asset_image_2": "big-money-2.jpg",
+            "asset_image_3": "big-money-3.jpg"
           }
         },
         "gallery-bomb": {
@@ -70,10 +70,10 @@
           "settings": {
             "title": "Bomb",
             "subtitle": "White • Cartoon Explosive",
-            "asset_image_1": "bomb-1.png",
-            "asset_image_2": "bomb-2.png",
-            "asset_image_3": "bomb-3.png",
-            "asset_image_4": "bomb-4.png"
+            "asset_image_1": "bomb-1.jpg",
+            "asset_image_2": "bomb-2.jpg",
+            "asset_image_3": "bomb-3.jpg",
+            "asset_image_4": "bomb-4.jpg"
           }
         },
         "gallery-eggplant": {
@@ -81,9 +81,9 @@
           "settings": {
             "title": "Eggplant Monster",
             "subtitle": "Purple Plush • Fuzzy Fun",
-            "asset_image_1": "eggplant-monster-1.png",
-            "asset_image_2": "eggplant-monster-2.png",
-            "asset_image_3": "eggplant-monster-3.png"
+            "asset_image_1": "eggplant-monster-1.jpg",
+            "asset_image_2": "eggplant-monster-2.jpg",
+            "asset_image_3": "eggplant-monster-3.jpg"
           }
         },
         "gallery-poker": {
@@ -91,7 +91,7 @@
           "settings": {
             "title": "Poker Face",
             "subtitle": "Bold • Card Shark Style",
-            "asset_image_1": "poker-1.png"
+            "asset_image_1": "poker-1.jpg"
           }
         },
         "feature-1": {
