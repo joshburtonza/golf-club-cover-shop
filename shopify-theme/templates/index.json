@@ -72,7 +72,8 @@
             "subtitle": "White • Cartoon Explosive",
             "asset_image_1": "bomb-1.png",
             "asset_image_2": "bomb-2.png",
-            "asset_image_3": "bomb-3.png"
+            "asset_image_3": "bomb-3.png",
+            "asset_image_4": "bomb-4.png"
           }
         },
         "gallery-eggplant": {
@@ -83,6 +84,14 @@
             "asset_image_1": "eggplant-monster-1.png",
             "asset_image_2": "eggplant-monster-2.png",
             "asset_image_3": "eggplant-monster-3.png"
+          }
+        },
+        "gallery-poker": {
+          "type": "style_gallery",
+          "settings": {
+            "title": "Poker Face",
+            "subtitle": "Bold • Card Shark Style",
+            "asset_image_1": "poker-1.png"
           }
         },
         "feature-1": {
@@ -114,7 +123,7 @@
           }
         }
       },
-      "block_order": ["gallery-gilmore", "gallery-lucky", "gallery-cherry-blossom", "gallery-money-man", "gallery-bomb", "gallery-eggplant", "feature-1", "feature-2", "feature-3", "feature-4"]
+      "block_order": ["gallery-gilmore", "gallery-lucky", "gallery-cherry-blossom", "gallery-money-man", "gallery-bomb", "gallery-eggplant", "gallery-poker", "feature-1", "feature-2", "feature-3", "feature-4"]
     },
     "featured-collection": {
       "type": "featured-collection",

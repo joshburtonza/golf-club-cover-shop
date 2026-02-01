@@ -43,6 +43,17 @@
             {%- assign img3_thumb = nil -%}
           {%- endif -%}
 
+          {%- if block.settings.image_4 -%}
+            {%- assign img4_src = block.settings.image_4 | image_url: width: 800 -%}
+            {%- assign img4_thumb = block.settings.image_4 | image_url: width: 200 -%}
+          {%- elsif block.settings.asset_image_4 != blank -%}
+            {%- assign img4_src = block.settings.asset_image_4 | asset_url -%}
+            {%- assign img4_thumb = block.settings.asset_image_4 | asset_url -%}
+          {%- else -%}
+            {%- assign img4_src = nil -%}
+            {%- assign img4_thumb = nil -%}
+          {%- endif -%}
+
           <div class="product-gallery__style" {{ block.shopify_attributes }}>
             <div style="margin-bottom:1.5rem;">
               <h3 class="product-gallery__style-title">{{ block.settings.title }}</h3>
@@ -85,6 +96,14 @@
                   onclick="changeGalleryImage('{{ block.id }}', '{{ img3_src }}', this)"
                 >
                   <img src="{{ img3_thumb }}" alt="{{ block.settings.title }} 3" loading="lazy">
+                </button>
+              {%- endif -%}
+              {%- if img4_src -%}
+                <button
+                  class="product-gallery__thumb"
+                  onclick="changeGalleryImage('{{ block.id }}', '{{ img4_src }}', this)"
+                >
+                  <img src="{{ img4_thumb }}" alt="{{ block.settings.title }} 4" loading="lazy">
                 </button>
               {%- endif -%}
             </div>
@@ -203,6 +222,17 @@
           "type": "text",
           "id": "asset_image_3",
           "label": "Image 3 (asset filename)",
+          "info": "Fallback: enter filename from assets folder"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_4",
+          "label": "Image 4 (upload)"
+        },
+        {
+          "type": "text",
+          "id": "asset_image_4",
+          "label": "Image 4 (asset filename)",
           "info": "Fallback: enter filename from assets folder"
         }
       ]
