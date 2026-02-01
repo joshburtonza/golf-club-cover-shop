@@ -2,14 +2,23 @@ import { useState, useEffect } from "react";
 import { Flame, Clock } from "lucide-react";
 import { getDiscountPercentage } from "@/lib/pricing";
 
-// Sale ends in 3 days from now (configurable)
-const SALE_END_DATE = new Date(Date.now() + 3 * 24 * 60 * 60 * 1000);
+// Calculate the next sale end time on a rolling 3-day cycle
+const getSaleEndDate = (): Date => {
+  const now = new Date();
+  const cycleMs = 3 * 24 * 60 * 60 * 1000; // 3 days in milliseconds
+  const epoch = new Date('2025-01-01T00:00:00Z').getTime(); // Fixed reference point
+  const timeSinceEpoch = now.getTime() - epoch;
+  const currentCycle = Math.floor(timeSinceEpoch / cycleMs);
+  const nextCycleEnd = epoch + (currentCycle + 1) * cycleMs;
+  return new Date(nextCycleEnd);
+};
 
 export const SaleTicker = () => {
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
 
   function calculateTimeLeft() {
-    const difference = SALE_END_DATE.getTime() - new Date().getTime();
+    const endDate = getSaleEndDate();
+    const difference = endDate.getTime() - new Date().getTime();
     if (difference <= 0) {
       return { days: 0, hours: 0, minutes: 0, seconds: 0, expired: true };
     }
