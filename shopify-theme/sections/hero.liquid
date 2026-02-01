@@ -36,6 +36,14 @@
                 width="800"
                 height="800"
               >
+            {%- elsif section.settings.asset_image != blank -%}
+              <img
+                src="{{ section.settings.asset_image | asset_url }}"
+                alt="Premium Golf Headcover"
+                loading="eager"
+                width="800"
+                height="800"
+              >
             {%- elsif section.settings.featured_product != blank -%}
               {%- assign hero_product = all_products[section.settings.featured_product] -%}
               {%- if hero_product.featured_image -%}
@@ -118,7 +126,13 @@
     {
       "type": "image_picker",
       "id": "image",
-      "label": "Hero image"
+      "label": "Hero image (upload)"
+    },
+    {
+      "type": "text",
+      "id": "asset_image",
+      "label": "Hero image (asset filename)",
+      "info": "Fallback: enter filename from assets folder e.g. gilmore-single.png"
     },
     {
       "type": "product",

@@ -9,17 +9,50 @@
     <div class="product-gallery__grid">
       {%- for block in section.blocks -%}
         {%- if block.type == 'style_gallery' -%}
+          {%- comment -%}Determine image sources: prefer image_picker, fall back to asset_url{%- endcomment -%}
+          {%- if block.settings.image_1 -%}
+            {%- assign img1_src = block.settings.image_1 | image_url: width: 800 -%}
+            {%- assign img1_thumb = block.settings.image_1 | image_url: width: 200 -%}
+          {%- elsif block.settings.asset_image_1 != blank -%}
+            {%- assign img1_src = block.settings.asset_image_1 | asset_url -%}
+            {%- assign img1_thumb = block.settings.asset_image_1 | asset_url -%}
+          {%- else -%}
+            {%- assign img1_src = nil -%}
+            {%- assign img1_thumb = nil -%}
+          {%- endif -%}
+
+          {%- if block.settings.image_2 -%}
+            {%- assign img2_src = block.settings.image_2 | image_url: width: 800 -%}
+            {%- assign img2_thumb = block.settings.image_2 | image_url: width: 200 -%}
+          {%- elsif block.settings.asset_image_2 != blank -%}
+            {%- assign img2_src = block.settings.asset_image_2 | asset_url -%}
+            {%- assign img2_thumb = block.settings.asset_image_2 | asset_url -%}
+          {%- else -%}
+            {%- assign img2_src = nil -%}
+            {%- assign img2_thumb = nil -%}
+          {%- endif -%}
+
+          {%- if block.settings.image_3 -%}
+            {%- assign img3_src = block.settings.image_3 | image_url: width: 800 -%}
+            {%- assign img3_thumb = block.settings.image_3 | image_url: width: 200 -%}
+          {%- elsif block.settings.asset_image_3 != blank -%}
+            {%- assign img3_src = block.settings.asset_image_3 | asset_url -%}
+            {%- assign img3_thumb = block.settings.asset_image_3 | asset_url -%}
+          {%- else -%}
+            {%- assign img3_src = nil -%}
+            {%- assign img3_thumb = nil -%}
+          {%- endif -%}
+
           <div class="product-gallery__style" {{ block.shopify_attributes }}>
             <div style="margin-bottom:1.5rem;">
               <h3 class="product-gallery__style-title">{{ block.settings.title }}</h3>
               <p class="product-gallery__style-subtitle">{{ block.settings.subtitle }}</p>
             </div>
 
-            {%- assign gallery_images = block.settings.image_1 | default: nil -%}
             <div class="product-gallery__main-image" data-gallery="{{ block.id }}">
-              {%- if block.settings.image_1 -%}
+              {%- if img1_src -%}
                 <img
-                  src="{{ block.settings.image_1 | image_url: width: 800 }}"
+                  src="{{ img1_src }}"
                   alt="{{ block.settings.title }} - Image 1"
                   id="gallery-main-{{ block.id }}"
                   loading="lazy"
@@ -30,28 +63,28 @@
             </div>
 
             <div class="product-gallery__thumbs">
-              {%- if block.settings.image_1 -%}
+              {%- if img1_src -%}
                 <button
                   class="product-gallery__thumb active"
-                  onclick="changeGalleryImage('{{ block.id }}', '{{ block.settings.image_1 | image_url: width: 800 }}', this)"
+                  onclick="changeGalleryImage('{{ block.id }}', '{{ img1_src }}', this)"
                 >
-                  <img src="{{ block.settings.image_1 | image_url: width: 200 }}" alt="{{ block.settings.title }} 1" loading="lazy">
+                  <img src="{{ img1_thumb }}" alt="{{ block.settings.title }} 1" loading="lazy">
                 </button>
               {%- endif -%}
-              {%- if block.settings.image_2 -%}
+              {%- if img2_src -%}
                 <button
                   class="product-gallery__thumb"
-                  onclick="changeGalleryImage('{{ block.id }}', '{{ block.settings.image_2 | image_url: width: 800 }}', this)"
+                  onclick="changeGalleryImage('{{ block.id }}', '{{ img2_src }}', this)"
                 >
-                  <img src="{{ block.settings.image_2 | image_url: width: 200 }}" alt="{{ block.settings.title }} 2" loading="lazy">
+                  <img src="{{ img2_thumb }}" alt="{{ block.settings.title }} 2" loading="lazy">
                 </button>
               {%- endif -%}
-              {%- if block.settings.image_3 -%}
+              {%- if img3_src -%}
                 <button
                   class="product-gallery__thumb"
-                  onclick="changeGalleryImage('{{ block.id }}', '{{ block.settings.image_3 | image_url: width: 800 }}', this)"
+                  onclick="changeGalleryImage('{{ block.id }}', '{{ img3_src }}', this)"
                 >
-                  <img src="{{ block.settings.image_3 | image_url: width: 200 }}" alt="{{ block.settings.title }} 3" loading="lazy">
+                  <img src="{{ img3_thumb }}" alt="{{ block.settings.title }} 3" loading="lazy">
                 </button>
               {%- endif -%}
             </div>
@@ -142,17 +175,35 @@
         {
           "type": "image_picker",
           "id": "image_1",
-          "label": "Image 1"
+          "label": "Image 1 (upload)"
+        },
+        {
+          "type": "text",
+          "id": "asset_image_1",
+          "label": "Image 1 (asset filename)",
+          "info": "Fallback: enter filename from assets folder e.g. gilmore-single.png"
         },
         {
           "type": "image_picker",
           "id": "image_2",
-          "label": "Image 2"
+          "label": "Image 2 (upload)"
+        },
+        {
+          "type": "text",
+          "id": "asset_image_2",
+          "label": "Image 2 (asset filename)",
+          "info": "Fallback: enter filename from assets folder"
         },
         {
           "type": "image_picker",
           "id": "image_3",
-          "label": "Image 3"
+          "label": "Image 3 (upload)"
+        },
+        {
+          "type": "text",
+          "id": "asset_image_3",
+          "label": "Image 3 (asset filename)",
+          "info": "Fallback: enter filename from assets folder"
         }
       ]
     },

@@ -11,31 +11,78 @@
         "button_link": "#catalogue",
         "button_2_text": "See the Collection",
         "button_2_link": "#catalogue",
-        "starting_price": "375"
+        "starting_price": "375",
+        "asset_image": "gilmore-single.png"
       }
     },
     "product-gallery": {
       "type": "product-gallery",
       "settings": {
         "subtitle": "The Collection",
-        "heading": "Two Styles. Zero Excuses.",
-        "description": "Choose your vibe: Classic black & gold \"Gilmore 18\" for the traditionalist, or white & green \"100% Lucky\" for those who need all the help they can get.",
+        "heading": "Every Style. Zero Excuses.",
+        "description": "From classic black & gold to cartoon chaos — pick the headcover that matches your personality (or your handicap).",
         "testimonial_text": "Finally, something in my golf bag that doesn't embarrass me.",
         "testimonial_author": "Thabo M., Johannesburg"
       },
       "blocks": {
-        "gallery-1": {
+        "gallery-gilmore": {
           "type": "style_gallery",
           "settings": {
             "title": "Gilmore 18",
-            "subtitle": "Black & Gold • Jersey Style"
+            "subtitle": "Black & Gold • Jersey Style",
+            "asset_image_1": "gilmore-single.png",
+            "asset_image_2": "gilmore-set-car.png",
+            "asset_image_3": "gilmore-set-grass.png"
           }
         },
-        "gallery-2": {
+        "gallery-lucky": {
           "type": "style_gallery",
           "settings": {
             "title": "100% Lucky",
-            "subtitle": "White & Green • Shamrock Style"
+            "subtitle": "White & Green • Shamrock Style",
+            "asset_image_1": "lucky-set-bag.png",
+            "asset_image_2": "lucky-set-door.png",
+            "asset_image_3": "lucky-set-grass.png"
+          }
+        },
+        "gallery-cherry-blossom": {
+          "type": "style_gallery",
+          "settings": {
+            "title": "Cherry Blossom Luck",
+            "subtitle": "Pink Quilted • Hello Golf",
+            "asset_image_1": "hello-golf-1.png",
+            "asset_image_2": "hello-golf-2.png",
+            "asset_image_3": "hello-golf-3.webp"
+          }
+        },
+        "gallery-money-man": {
+          "type": "style_gallery",
+          "settings": {
+            "title": "Money Man",
+            "subtitle": "White & Blue • Big Spender",
+            "asset_image_1": "big-money-1.png",
+            "asset_image_2": "big-money-2.png",
+            "asset_image_3": "big-money-3.png"
+          }
+        },
+        "gallery-bomb": {
+          "type": "style_gallery",
+          "settings": {
+            "title": "Bomb",
+            "subtitle": "White • Cartoon Explosive",
+            "asset_image_1": "bomb-1.png",
+            "asset_image_2": "bomb-2.png",
+            "asset_image_3": "bomb-3.png"
+          }
+        },
+        "gallery-eggplant": {
+          "type": "style_gallery",
+          "settings": {
+            "title": "Eggplant Monster",
+            "subtitle": "Purple Plush • Fuzzy Fun",
+            "asset_image_1": "eggplant-monster-1.png",
+            "asset_image_2": "eggplant-monster-2.png",
+            "asset_image_3": "eggplant-monster-3.png"
           }
         },
         "feature-1": {
@@ -67,7 +114,7 @@
           }
         }
       },
-      "block_order": ["gallery-1", "gallery-2", "feature-1", "feature-2", "feature-3", "feature-4"]
+      "block_order": ["gallery-gilmore", "gallery-lucky", "gallery-cherry-blossom", "gallery-money-man", "gallery-bomb", "gallery-eggplant", "feature-1", "feature-2", "feature-3", "feature-4"]
     },
     "featured-collection": {
       "type": "featured-collection",
