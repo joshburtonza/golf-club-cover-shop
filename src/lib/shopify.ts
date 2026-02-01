@@ -1,9 +1,9 @@
 import { toast } from "sonner";
 
 const SHOPIFY_API_VERSION = '2025-07';
-const SHOPIFY_STORE_PERMANENT_DOMAIN = 'golf-club-cover-shop-6l3p1.myshopify.com';
+const SHOPIFY_STORE_PERMANENT_DOMAIN = 'fairway-favorites-shop-luuuv.myshopify.com';
 const SHOPIFY_STOREFRONT_URL = `https://${SHOPIFY_STORE_PERMANENT_DOMAIN}/api/${SHOPIFY_API_VERSION}/graphql.json`;
-const SHOPIFY_STOREFRONT_TOKEN = '210179f6ec02f19ecacd4947d0d20b35';
+const SHOPIFY_STOREFRONT_TOKEN = '40aee9b737f9ddd1620856e79bed8e7c';
 
 export interface ShopifyProduct {
   node: {
